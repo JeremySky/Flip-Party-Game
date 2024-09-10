@@ -69,6 +69,9 @@ extension FrontView {
                         Text(cardValueString)
                             .font(.system(size: 60, weight: .heavy, design: .rounded))
                             .foregroundStyle(.white)
+                            .offset(
+                                y: card.suit == .clubs ? 2 : 0
+                            )
                     }
                     
                 case .jack, .queen, .king:
@@ -76,7 +79,7 @@ extension FrontView {
                         Image(systemName: suitImageString)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 100)
+                            .frame(width: card.suit == .clubs ? 110 : 100)
                             .foregroundStyle(cardColor)
                         Image(systemName: "crown.fill")
                             .resizable()
@@ -87,7 +90,14 @@ extension FrontView {
                         Text(cardValueString)
                             .font(.system(size: 70, weight: .black, design: .rounded))
                             .foregroundStyle(.white)
-                            .offset(x: card.value == .jack ? -4 : 0)
+                            .offset(
+                                x: card.value == .jack ? -4 : 0,
+                                y: card.suit == .clubs ? 2 : 0
+                            )
+                            .offset(
+                                x: card.suit == .clubs && card.value == .king ? 2 : 0,
+                                y: card.suit == .clubs && card.value == .king ? 2 : 0
+                            )
                     }
                     .offset(y: 10)
                     
@@ -165,5 +175,43 @@ extension FrontView {
 }
 
 #Preview {
-    FrontView(Card(value: .ten, suit: .hearts))
+    struct Preview: View {
+        @State var selectedSuit: CardSuit = .diamonds
+        @State var selectedValue: CardValue = .ace
+        
+        func selectValue(_ value: CardValue) { selectedValue = value }
+        
+        var body: some View {
+            TabView(selection: $selectedSuit) {
+                ForEach(CardSuit.allCases) { suit in
+                    VStack {
+                        HStack(spacing: 10) {
+                            Button(action: { selectValue(.ace) }) {
+                                MiniFrontView(Card(value: .ace, suit: suit))
+                            }
+                            Button(action: { selectValue(.two) }) {
+                                MiniFrontView(Card(value: .two, suit: suit))
+                            }
+                            Button(action: { selectValue(.ten) }) {
+                                MiniFrontView(Card(value: .ten, suit: suit))
+                            }
+                            Button(action: { selectValue(.jack) }) {
+                                MiniFrontView(Card(value: .jack, suit: suit))
+                            }
+                        }
+                        TabView(selection: $selectedValue) {
+                            ForEach(CardValue.allCases) { value in
+                                FrontView(Card(value: value, suit: suit))
+                                    .tag(value)
+                            }
+                        }
+                    }
+                    .tabItem { Image(systemName: suit.imageString) }
+                    .tabViewStyle(.page)
+                }
+            }
+        }
+    }
+    
+    return Preview()
 }

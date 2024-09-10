@@ -12,8 +12,10 @@ enum SuitColor: Codable {
     case red, black
 }
 
-enum CardSuit: Codable {
+enum CardSuit: String, Codable, CaseIterable, Identifiable {
     case diamonds, hearts, spades, clubs
+    
+    var id: String { self.rawValue }
     
     var color: SuitColor {
         switch self {
@@ -23,10 +25,25 @@ enum CardSuit: Codable {
                 .black
         }
     }
+    
+    var imageString: String {
+        switch self {
+        case .diamonds:
+            "suit.diamond.fill"
+        case .hearts:
+            "suit.heart.fill"
+        case .spades:
+            "suit.spade.fill"
+        case .clubs:
+            "suit.club.fill"
+        }
+    }
 }
 
-enum CardValue: Codable {
+enum CardValue: String, Codable, CaseIterable, Identifiable {
     case ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
+    
+    var id: String { self.rawValue }
     
     var int: Int {
         switch self {
