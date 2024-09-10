@@ -30,7 +30,7 @@ struct FrontView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding(.vertical, 2)
-            .padding(.leading, card.value != .ten ? 6 : 2)
+            .padding(.leading, card.value != .ten ? 9 : 6)
             .copyAndRotate()
             
             // Main Body...
@@ -44,7 +44,9 @@ struct FrontView: View {
 
 extension FrontView {
     struct CardCenter: View {
+        
         let card: Card
+        
         var cardValueString: String { card.getText() }
         var suitImageString: String { card.getSuit() }
         var cardColor: Color { card.getColor() }
@@ -163,5 +165,5 @@ extension FrontView {
 }
 
 #Preview {
-    FrontView(Card(value: .ten, suit: .hearts))
+    FrontView(Card(value: .jack, suit: .hearts))
 }

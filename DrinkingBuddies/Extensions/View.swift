@@ -14,7 +14,7 @@ extension View {
         var width: CGFloat {
             switch size {
             case .standard:
-                200
+                215
             case .mini:
                 80
             }
@@ -22,7 +22,7 @@ extension View {
         var height: CGFloat {
             switch size {
             case .standard:
-                333
+                338
             case .mini:
                 100
             }
