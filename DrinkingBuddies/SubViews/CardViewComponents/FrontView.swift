@@ -144,7 +144,7 @@ extension FrontView {
                     
                 }
             }
-            .frame(width: 120, height: 250)
+            .frame(width: 125, height: 250)
             .border(Color.blue.opacity(0.3), width: 3)
         }
         
@@ -165,5 +165,5 @@ extension FrontView {
 }
 
 #Preview {
-    FrontView(Card(value: .jack, suit: .hearts))
+    FrontView(Card(value: .ten, suit: .hearts))
 }
