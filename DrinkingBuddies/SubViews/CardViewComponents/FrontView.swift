@@ -91,37 +91,18 @@ extension FrontView {
                     
                 case .two:
                     VStack(spacing: 100) {
-                        Image(systemName: suitImageString)
-                            .suitFormat(color: cardColor)
-                        Image(systemName: suitImageString)
-                            .suitFormat(color: cardColor)
+                        getSuitImage(row: 2, column: 1)
                     }
                     
                 case .three:
                     VStack(spacing: 40) {
-                        Image(systemName: suitImageString)
-                            .suitFormat(color: cardColor)
-                        Image(systemName: suitImageString)
-                            .suitFormat(color: cardColor)
-                        Image(systemName: suitImageString)
-                            .suitFormat(color: cardColor)
+                        getSuitImage(row: 3, column: 1)
                     }
                     
                 case .four, .five:
                     ZStack {
                         VStack(spacing: 100) {
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
+                            getSuitImage(row: 2, column: 2)
                         }
                         if card.value == .five {
                             Image(systemName: suitImageString)
@@ -132,24 +113,7 @@ extension FrontView {
                 case .six, .seven:
                     ZStack {
                         VStack(spacing: 40) {
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
+                            getSuitImage(row: 3, column: 2)
                         }
                         if card.value == .seven {
                             VStack(spacing: 44) {
@@ -163,30 +127,7 @@ extension FrontView {
                 case .eight, .nine, .ten:
                     ZStack {
                         VStack(spacing: 25) {
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
-                            HStack(spacing: 40) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                            }
+                            getSuitImage(row: 4, column: 2)
                         }
                         if card.value != .eight {
                             VStack(spacing: 84) {
@@ -204,9 +145,23 @@ extension FrontView {
             .frame(width: 120, height: 250)
             .border(Color.blue.opacity(0.3), width: 3)
         }
+        
+        
+        func getSuitImage(row: Int, column: Int) -> some View {
+            ForEach(0..<row, id: \.self) { iRow in
+                HStack(spacing: 40) {
+                    Image(systemName: suitImageString)
+                        .suitFormat(color: cardColor)
+                    if column > 1 {
+                        Image(systemName: suitImageString)
+                            .suitFormat(color: cardColor)
+                    }
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    FrontView(Card(value: .queen, suit: .hearts))
+    FrontView(Card(value: .ten, suit: .hearts))
 }
