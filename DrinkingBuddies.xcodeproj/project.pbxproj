@@ -12,6 +12,7 @@
 		62307CAB2C8C070600DCBADC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62307CAA2C8C070600DCBADC /* Assets.xcassets */; };
 		62307CAE2C8C070600DCBADC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */; };
 		62307CB62C8FD0D600DCBADC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CB52C8FD0D600DCBADC /* Card.swift */; };
+		62307CBD2C8FE29300DCBADC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CBC2C8FE29300DCBADC /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		62307CAA2C8C070600DCBADC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		62307CB52C8FD0D600DCBADC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		62307CBC2C8FE29300DCBADC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		62307CB92C8FD5AA00DCBADC /* SubView */ = {
 			isa = PBXGroup;
 			children = (
+				62307CBC2C8FE29300DCBADC /* CardView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			files = (
 				62307CA92C8C070500DCBADC /* ContentView.swift in Sources */,
 				62307CB62C8FD0D600DCBADC /* Card.swift in Sources */,
+				62307CBD2C8FE29300DCBADC /* CardView.swift in Sources */,
 				62307CA72C8C070500DCBADC /* DrinkingBuddiesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

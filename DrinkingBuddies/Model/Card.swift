@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum SuitColor: Codable {
     case red, black
@@ -63,4 +64,57 @@ struct Card: Codable {
     var value: CardValue
     var suit: CardSuit
     var color: SuitColor { return suit.color}
+    
+    func getText() -> String {
+        switch self.value {
+        case .ace:
+            "A"
+        case .two:
+            "2"
+        case .three:
+            "3"
+        case .four:
+            "4"
+        case .five:
+            "5"
+        case .six:
+            "6"
+        case .seven:
+            "7"
+        case .eight:
+            "8"
+        case .nine:
+            "9"
+        case .ten:
+            "10"
+        case .jack:
+            "J"
+        case .queen:
+            "Q"
+        case .king:
+            "K"
+        }
+    }
+    
+    func getSuit() -> String {
+        switch self.suit {
+        case .diamonds:
+            "suit.diamond.fill"
+        case .hearts:
+            "suit.heart.fill"
+        case .spades:
+            "suit.spade.fill"
+        case .clubs:
+            "suit.club.fill"
+        }
+    }
+    
+    func getColor() -> Color {
+        switch self.color {
+        case .red:
+            return Color.red
+        case .black:
+            return Color.black
+        }
+    }
 }
