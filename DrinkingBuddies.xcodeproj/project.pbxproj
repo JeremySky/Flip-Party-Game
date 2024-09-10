@@ -11,6 +11,7 @@
 		62307CA92C8C070500DCBADC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CA82C8C070500DCBADC /* ContentView.swift */; };
 		62307CAB2C8C070600DCBADC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62307CAA2C8C070600DCBADC /* Assets.xcassets */; };
 		62307CAE2C8C070600DCBADC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */; };
+		62307CB62C8FD0D600DCBADC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CB52C8FD0D600DCBADC /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		62307CA82C8C070500DCBADC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		62307CAA2C8C070600DCBADC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		62307CB52C8FD0D600DCBADC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +54,10 @@
 			isa = PBXGroup;
 			children = (
 				62307CA62C8C070500DCBADC /* DrinkingBuddiesApp.swift */,
-				62307CA82C8C070500DCBADC /* ContentView.swift */,
+				62307CB72C8FD51C00DCBADC /* View */,
+				62307CB92C8FD5AA00DCBADC /* SubView */,
+				62307CB82C8FD52100DCBADC /* ViewModel */,
+				62307CB42C8FD0C600DCBADC /* Model */,
 				62307CAA2C8C070600DCBADC /* Assets.xcassets */,
 				62307CAC2C8C070600DCBADC /* Preview Content */,
 			);
@@ -65,6 +70,36 @@
 				62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		62307CB42C8FD0C600DCBADC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				62307CB52C8FD0D600DCBADC /* Card.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		62307CB72C8FD51C00DCBADC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				62307CA82C8C070500DCBADC /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		62307CB82C8FD52100DCBADC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		62307CB92C8FD5AA00DCBADC /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62307CA92C8C070500DCBADC /* ContentView.swift in Sources */,
+				62307CB62C8FD0D600DCBADC /* Card.swift in Sources */,
 				62307CA72C8C070500DCBADC /* DrinkingBuddiesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
