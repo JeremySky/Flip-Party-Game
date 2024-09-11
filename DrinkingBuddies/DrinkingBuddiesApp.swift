@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct DrinkingBuddiesApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                Color.red.opacity(0.85).ignoresSafeArea()
+                RoomIDTextField()
+            }
         }
     }
 }
