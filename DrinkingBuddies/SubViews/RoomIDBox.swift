@@ -1,5 +1,5 @@
 //
-//  IDBoxedTextField.swift
+//  RoomIDBox.swift
 //  DrinkingBuddies
 //
 //  Created by Jeremy Manlangit on 9/10/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 
 
-struct SingleBoxTextField: View {
+struct RoomIDBox: View {
     
     let character: Character
     @Binding var isFocused: Bool

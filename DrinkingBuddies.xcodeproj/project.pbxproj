@@ -19,7 +19,7 @@
 		62307CC72C902A6800DCBADC /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CC62C902A6800DCBADC /* View.swift */; };
 		62307CC92C902AC700DCBADC /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CC82C902AC700DCBADC /* Image.swift */; };
 		628775862C90B63300E7D8C3 /* RoomIDTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628775852C90B63300E7D8C3 /* RoomIDTextField.swift */; };
-		628775882C90E42500E7D8C3 /* SingleBoxTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628775872C90E42500E7D8C3 /* SingleBoxTextField.swift */; };
+		628775882C90E42500E7D8C3 /* RoomIDBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628775872C90E42500E7D8C3 /* RoomIDBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +36,7 @@
 		62307CC62C902A6800DCBADC /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		62307CC82C902AC700DCBADC /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		628775852C90B63300E7D8C3 /* RoomIDTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomIDTextField.swift; sourceTree = "<group>"; };
-		628775872C90E42500E7D8C3 /* SingleBoxTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBoxTextField.swift; sourceTree = "<group>"; };
+		628775872C90E42500E7D8C3 /* RoomIDBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomIDBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +118,7 @@
 				62307CBC2C8FE29300DCBADC /* CardView.swift */,
 				62307CBE2C90277500DCBADC /* CardViewComponents */,
 				628775852C90B63300E7D8C3 /* RoomIDTextField.swift */,
-				628775872C90E42500E7D8C3 /* SingleBoxTextField.swift */,
+				628775872C90E42500E7D8C3 /* RoomIDBox.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 				62307CC72C902A6800DCBADC /* View.swift in Sources */,
 				62307CC92C902AC700DCBADC /* Image.swift in Sources */,
 				62307CC02C90283C00DCBADC /* FrontView.swift in Sources */,
-				628775882C90E42500E7D8C3 /* SingleBoxTextField.swift in Sources */,
+				628775882C90E42500E7D8C3 /* RoomIDBox.swift in Sources */,
 				628775862C90B63300E7D8C3 /* RoomIDTextField.swift in Sources */,
 				62307CA92C8C070500DCBADC /* ContentView.swift in Sources */,
 				62307CB62C8FD0D600DCBADC /* Card.swift in Sources */,
