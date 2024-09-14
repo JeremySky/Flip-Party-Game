@@ -7,233 +7,165 @@
 
 import SwiftUI
 
-class RoomIDTextFieldViewModel: ObservableObject {
-    
-    @Published var roomID: String
-    
-    init(roomID: String = "") {
-        self.roomID = roomID
-    }
-    
-    
-    private func textfieldIsMaxed() -> Bool { roomID.count >= 7 }
-    
-    func formatText(_ oldValue: String, _ newValue: String) {
-        // Safely unwrap newChar
-        guard let newChar = newValue.last else { return }
-        // First character != "-"
-        guard newChar != "-" || !oldValue.isEmpty else { return roomID = "" }
-        // Guards against non-AlphaNumeric (excluding marker "-")
-        guard newChar.isLetter || newChar.isNumber || newChar == "-" else { return roomID = oldValue /* with error */ }
-        
-        
-        let isAddingChar = newValue.count > oldValue.count
-        
-        if isAddingChar {
-            
-            // Change Display Text
-            if textfieldIsMaxed() {
-                if newChar == "-" { return roomID = oldValue }
-                var string = newValue
-                
-                //Remove all characters after startIndex
-                let startIndex = string.index(string.startIndex, offsetBy: 6)
-                string.removeSubrange(startIndex..<string.endIndex)
-                
-                self.roomID = string + String(newChar)
-                
-                
-            } else if newChar != "-" {
-                
-                var newCharPrefixedWithMarker: String? = nil
-                
-                if oldValue.last != "-" && !oldValue.isEmpty { newCharPrefixedWithMarker = "-" + String(newChar)  }
-                
-                self.roomID = oldValue + (newCharPrefixedWithMarker ?? String(newChar))
-                
-                if self.roomID.count < 6 {
-                    self.roomID += "-"
-                }
-                
-                
-                
-            }
-        }
-        
-    }
-    
-}
 
 struct RoomIDTextField: View {
     
-    @StateObject var viewModel = RoomIDTextFieldViewModel()
-    @State var temp: String = "String"
+    enum FocusField: CaseIterable {
+        case one, two, three, four
+        
+        var index: Int {
+            switch self {
+            case .one:
+                return 0
+            case .two:
+                return 1
+            case .three:
+                return 2
+            case .four:
+                return 3
+            }
+        }
+        
+        var next: FocusField {
+            switch self {
+            case .one:
+                    return .two
+            case .two:
+                    return .three
+            case .three:
+                    return .four
+            case .four:
+                    return .four
+            }
+        }
+        
+        var previous: FocusField {
+            switch self {
+            case .one:
+                    return .one
+            case .two:
+                    return .one
+            case .three:
+                    return .two
+            case .four:
+                    return .three
+            }
+        }
+        
+        static var count: Int { FocusField.allCases.count }
+    }
     
-    @State var isFocusedArray: [Bool] = Array(repeating: false, count: 4)
+    @State var idStack: [(char: Character?, isAnimating: Bool)] = Array(repeating: (nil, false), count: FocusField.count)
+    @State var string: String = "-"
+    
     @FocusState var isFocused: Bool
-    @State var isTargetedTextFill: Bool = false
-    
-    @State var isLongPressArray: [Bool] = Array(repeating: false, count: 4)
-    @State var scaleAll: Bool = false
+    @State var focusField: FocusField?
     
     
     var body: some View {
-        VStack {
+        ZStack {
+            TextField("", text: $string).focused($isFocused).opacity(0).frame(width: 0, height: 0)
             
-            ZStack {
+            HStack(spacing: 15) {
                 
-                // Hidden Textfield...
-                Group {
-                    TextField("Room ID", text: $viewModel.roomID)
-                        .opacity(0)
-                        .focused($isFocused)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 150)
-                }
-                
-                HStack(spacing: 15) {
-                    ForEach(0..<4) { index in
-                        RoomIDBox(getCharacter(at: index), $isFocusedArray[index])
-                            .scaleEffect(isLongPressArray[index] ? 0.95 : 1)
-                            .onLongPressGesture(minimumDuration: .infinity) {
-                                withAnimation(.spring(duration: 0.13, bounce: 0.8)) {
-                                    if index != 0 && index > (viewModel.roomID.count / 2) {
-                                        scaleAll = true
-                                    } else {
-                                        isLongPressArray[index] = false
-                                    }
-                                }
-                                
-                            } onPressingChanged: { inProgress in
-                                withAnimation(.spring(duration: inProgress ? 0.13 : 0.2, bounce: inProgress ? 0.8 : 0.85)) {
-                                    if index != 0 && index > (viewModel.roomID.count / 2) {
-                                        scaleAll = inProgress
-                                    } else {
-                                        isLongPressArray[index] = inProgress
-                                    }
-                                }
-                                
-                                if !inProgress {
-                                    
-                                    isFocused = true
-                                    var newFocus: [Bool] = [false, false, false, false]
-                                    var newFocusIndex: Int = (viewModel.roomID.count / 2)
-                                    
-                                    if viewModel.roomID.isEmpty {
-                                        isFocusedArray[0] = true
-                                    } else if index > newFocusIndex {
-                                        newFocus[newFocusIndex] = true
-                                        isFocusedArray = newFocus
-                                    } else {
-                                        newFocus[index] = true
-                                        isFocusedArray = newFocus
-                                    }
-                                    
-                                }
+                ForEach(0..<idStack.count, id: \.self) { index in
+                    
+                    Text(String(idStack[index].char ?? "-"))
+                        .font(.system(size: 40, weight: .heavy, design: .rounded))
+                        .opacity(isFieldFocused(at: index) ? 0.8 : 1)
+                        .cardStyle(customWidth: 60, customHeight: 80, border: false)
+                        .shadow(color: .white, radius: isFieldFocused(at: index) ? 10 : 0)
+                        .scaleEffect(idStack[index].isAnimating ? 0.95 : 1)
+                        .onLongPressGesture(minimumDuration: .infinity, perform: {}) { inProgress in
+                            withAnimation(.spring(duration: inProgress ? 0.13 : 0.2, bounce: inProgress ? 0.8 : 0.85)) {
+                                choiceAnimation(selected: index, inProgress)
+                                if !inProgress { focusField =  getFirstViableFocusField(selected: index) }
                             }
-                    }
+                            isFocused = true
+                        }
+                    
                 }
-                .scaleEffect(scaleAll ? 0.95 : 1)
-                .padding(20)
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundStyle(Color.black.opacity(0.1))
+                
+            }
+            .padding(20)
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundStyle(Color.black.opacity(0.1))
+            }
+            
+        }
+        .onChange(of: string) { editIDStack($0, $1) }
+    }
+    
+    private func editIDStack(_ oldValue: String, _ newValue: String) {
+        if newValue.isEmpty { return string = "-" }
+        
+        let isInput = newValue.count > oldValue.count
+        let isDelete = newValue.count < oldValue.count
+        
+        if let focusField {
+            
+            
+            if isDelete || newValue == "-" {
+                if idStack[focusField.index].char != nil {
+                    idStack[focusField.index].char = nil
+                } else {
+                    self.focusField = focusField.previous
                 }
+            } else if isInput {
+                idStack[focusField.index].char = newValue.last
+                self.focusField = focusField.next
             }
-            
-            Text(viewModel.roomID.isEmpty ? "TextField is Empty" : viewModel.roomID)
-            Text(temp)
-        }
-        .onChange(of: isFocused) { oldValue, newValue in
-            changeFocusAfterIsFocusEdit(oldValue, newValue)
-        }
-        .onChange(of: viewModel.roomID) { oldValue, newValue in
-            viewModel.formatText(oldValue, newValue)
-            changeFocusAfterTextEdit(oldValue, newValue)
-        }
-        .onChange(of: viewModel.roomID) { oldValue, newValue in
-            temp = viewModel.roomID.isEmpty ? "String" : newValue.components(separatedBy: "-").joined()
+        
         }
     }
     
-    func getCharacter(at index: Int) -> Character {
-        
-        let idArray = viewModel.roomID.components(separatedBy: "-")
-        let indexOutOfRange = idArray.count <= index
-        if indexOutOfRange { return "-" }
-        
-        let char = idArray[index].first
-        return char ?? "-"
+    private func isFieldFocused(at index: Int) -> Bool {
+        if let fieldIndex = focusField?.index {
+            return fieldIndex == index
+        }
+        return false
     }
     
-    func changeFocusAfterIsFocusEdit(_ oldValue: Bool, _ newValue: Bool) {
+    private func getFocusField(at index: Int) -> FocusField {
+        switch index {
+        case 0:
+            FocusField.one
+        case 1:
+            FocusField.two
+        case 2:
+            FocusField.three
+        default:
+            FocusField.four
+        }
+    }
+    
+    private func getFirstViableFocusField(selected index: Int) -> FocusField {
+        let firstViableIndex = idStack.filter({ $0.char != nil }).count
         
-        var newFocus = [false, false, false, false]
-        
-        if newValue == true {
-            switch viewModel.roomID.count {
-            case 0:
-                newFocus[0] = true
-            case 1, 2:
-                newFocus[1] = true
-            case 3, 4:
-                newFocus[2] = true
-            case 5, 6:
-                newFocus[3] = true
-            default:
-                newFocus[3] = true
-            }
+        if index > firstViableIndex {
+            return getFocusField(at: firstViableIndex)
         }
         
-        isFocusedArray = newFocus
-        
+        return getFocusField(at: index)
     }
     
-    func changeFocusAfterTextEdit(_ oldValue: String, _ newValue: String) {
+    private func choiceAnimation(selected index: Int, _ isAnimating: Bool) {
+        let firstViableIndex = idStack.filter({ $0.char != nil }).count
         
-        var newFocus = [false, false, false, false]
-        
-        if newValue.count > oldValue.count {
-            // Change Focus
-            switch newValue.count {
-            case 0:
-                newFocus[0] = true
-            case 2:
-                newFocus[1] = true
-            case 4:
-                newFocus[2] = true
-            case 6:
-                newFocus[3] = true
-            default:
-                newFocus[3] = true
-            }
-            
-            
-            
+        if index > firstViableIndex {
+            self.idStack = idStack.map({ ($0.char, isAnimating) })
         } else {
-            // Change Focus
-            switch newValue.count {
-            case 0, 1:
-                newFocus[0] = true
-            case 2, 3:
-                newFocus[1] = true
-            case 4, 5:
-                newFocus[2] = true
-            case 6, 7:
-                newFocus[3] = true
-            default:
-                newFocus[3] = true
-            }
+            self.idStack[index].isAnimating = isAnimating
         }
-        
-        isFocusedArray = newFocus
     }
-    
 }
+
 
 
 #Preview {
     struct Preview: View {
+        
         var body: some View {
             ZStack {
                 Color
