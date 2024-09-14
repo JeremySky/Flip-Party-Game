@@ -143,13 +143,14 @@ struct RoomIDTextField: View {
                 self.focusField = unwrappedField.next
             }
             
+            
             withAnimation(.spring(duration: 0.13, bounce: 0.8)) {
-                idStack[self.focusField!.index].isAnimating = true
+                idStack[self.focusField?.index ?? unwrappedField.index].isAnimating = true
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.135) {
                 withAnimation(.spring(duration: 0.13, bounce: 0.8)) {
-                    idStack[self.focusField!.index].isAnimating = false
+                    idStack[self.focusField?.index ?? unwrappedField.index].isAnimating = false
                 }
             }
             
