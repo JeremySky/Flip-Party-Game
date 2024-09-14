@@ -111,7 +111,7 @@ struct RoomIDTextField: View {
             
         }
         .onChange(of: string) { editIDStack($0, $1) }
-        .onChange(of: isFocused) { oldValue, newValue in
+        .onChange(of: isFocused) { _, newValue in
             focusField = newValue ? focusField : nil
         }
     }
@@ -129,21 +129,32 @@ struct RoomIDTextField: View {
         let isInput = newValue.count > oldValue.count
         let isDelete = newValue.count < oldValue.count
         
-        if let focusField {
+        if let unwrappedField = focusField {
             
             
             if isDelete || newValue == "-" {
-                if idStack[focusField.index].char != nil {
-                    idStack[focusField.index].char = nil
+                if idStack[unwrappedField.index].char != nil {
+                    idStack[unwrappedField.index].char = nil
                 } else {
-                    self.focusField = focusField.previous
+                    self.focusField = unwrappedField.previous
                 }
             } else if isInput && (newValue.last?.isNumber == true || newValue.last?.isLetter == true){
-                idStack[focusField.index].char = newValue.uppercased().last
-                self.focusField = focusField.next
+                idStack[unwrappedField.index].char = newValue.uppercased().last
+                self.focusField = unwrappedField.next
             }
-        
+            
+            withAnimation(.spring(duration: 0.13, bounce: 0.8)) {
+                idStack[self.focusField!.index].isAnimating = true
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.135) {
+                withAnimation(.spring(duration: 0.13, bounce: 0.8)) {
+                    idStack[self.focusField!.index].isAnimating = false
+                }
+            }
+            
         }
+        
     }
     
     private func isFieldFocused(at index: Int) -> Bool {
