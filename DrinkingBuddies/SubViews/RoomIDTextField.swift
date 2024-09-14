@@ -55,6 +55,8 @@ struct RoomIDTextField: View {
         static var count: Int { FocusField.allCases.count }
     }
     
+    let submit: (String) -> Void = { _ in }
+    
     @State var idStack: [(char: Character?, isAnimating: Bool)] = Array(repeating: (nil, false), count: FocusField.count)
     @State var string: String = "-"
     
@@ -64,7 +66,16 @@ struct RoomIDTextField: View {
     
     var body: some View {
         ZStack {
-            TextField("", text: $string).focused($isFocused).opacity(0).frame(width: 0, height: 0)
+            TextField("", text: $string)
+                .frame(width: 0, height: 0).offset(y: 700) // HIDE
+                .focused($isFocused).opacity(0)
+                .onSubmit {
+                    if !idStack.contains(where: { $0.char == nil }) { return submit(getID()) }
+                    
+                    if let unwrappedFocusField = focusField {
+                        focusField = idStack[unwrappedFocusField.index].char != nil ? unwrappedFocusField.next : focusField
+                    }
+                }
             
             HStack(spacing: 15) {
                 
@@ -100,6 +111,13 @@ struct RoomIDTextField: View {
             
         }
         .onChange(of: string) { editIDStack($0, $1) }
+    }
+    private func getID() -> String {
+        let arr = idStack.compactMap({ $0.char })
+        let str = String(arr)
+        
+        print("ID to Submit: \(String(str.count == 4 ? str : "ERROR"))")
+        return str.count == 4 ? str : "ERROR"
     }
     
     private func editIDStack(_ oldValue: String, _ newValue: String) {
