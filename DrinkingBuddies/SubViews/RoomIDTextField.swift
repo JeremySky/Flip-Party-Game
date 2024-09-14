@@ -111,6 +111,9 @@ struct RoomIDTextField: View {
             
         }
         .onChange(of: string) { editIDStack($0, $1) }
+        .onChange(of: isFocused) { oldValue, newValue in
+            focusField = newValue ? focusField : nil
+        }
     }
     private func getID() -> String {
         let arr = idStack.compactMap({ $0.char })
