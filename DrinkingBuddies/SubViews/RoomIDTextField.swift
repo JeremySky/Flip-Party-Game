@@ -74,18 +74,18 @@ struct RoomIDTextField: View {
                             .font(.system(size: 40, weight: .heavy, design: .rounded))
                             .cardStyle(customWidth: 60, customHeight: 80, border: false)
                             .shadow(color: .white, radius: isFieldFocused(at: index) ? 10 : 0)
-                            .scaleEffect(idStack[index].isAnimating ? 0.95 : 1)
+                            .scaleEffect(idStack[index].isAnimating ? (isFocused ? 0.97 : 0.8) : 1)
                             .onLongPressGesture(minimumDuration: .infinity, perform: {}) { inProgress in
                                 withAnimation(.spring(duration: inProgress ? 0.13 : 0.2, bounce: inProgress ? 0.8 : 0.85)) {
                                     choiceAnimation(selected: index, inProgress)
-                                    if !inProgress { focusField =  getFirstViableFocusField(selected: index) }
                                 }
+                                if !inProgress { focusField =  getFirstViableFocusField(selected: index) }
                                 isFocused = true
                             }
                         Text("/")
                             .font(.system(size: 40))
                             .opacity(idStack[index].char == "0" ? 1 : 0)
-                            .scaleEffect(idStack[index].isAnimating ? 0.9 : 1)
+                            .scaleEffect(idStack[index].isAnimating ? (isFocused ? 0.95 : 0.8) : 1)
                             .offset(x: -0.5, y: -2.5)
                     }
                     
