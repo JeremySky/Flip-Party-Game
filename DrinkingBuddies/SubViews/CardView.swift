@@ -32,7 +32,9 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
+            
             switch style {
+                
             case .standard:
                 FrontView(card)
                     .rotation3DEffect(
@@ -42,6 +44,8 @@ struct CardView: View {
                     .rotation3DEffect(
                         .degrees(backDegree), axis: (x: 0.0, y: 1.0, z: 0.0)
                     )
+                
+                
             case .mini:
                 MiniFrontView(card)
                     .rotation3DEffect(
@@ -53,7 +57,7 @@ struct CardView: View {
                     )
             }
         }
-        .onTapGesture { flipCard() }
+        .onTapGesture { if !isFlipped { flipCard() } }
     }
     
     
@@ -73,11 +77,13 @@ struct CardView: View {
 
 
 #Preview {
+    let value = CardValue.allCases.randomElement()!
+    let suit = CardSuit.allCases.randomElement()!
     
     return VStack {
-        CardView(card: Card(value: .ace, suit: .hearts), style: .standard)
+        CardView(card: Card(value: value, suit: suit), style: .standard)
             .padding()
-        CardView(card: Card(value: .ace, suit: .hearts), style: .mini)
+        CardView(card: Card(value: value, suit: suit), style: .mini)
             .padding()
     }
 }
