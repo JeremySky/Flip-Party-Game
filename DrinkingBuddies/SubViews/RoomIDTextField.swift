@@ -70,12 +70,18 @@ struct RoomIDTextField: View {
                 .frame(width: 0, height: 0).offset(y: 700) // HIDE
                 .focused($isFocused).opacity(0)
                 .onSubmit {
-                    if !idStack.contains(where: { $0.char == nil }) { return submit(getID()) }
+                    
+                    if !idStack.contains(where: { $0.char == nil }) {
+                        return submit(getID())
+                    }
                     
                     if let unwrappedFocusField = focusField {
-                        focusField = idStack[unwrappedFocusField.index].char != nil ? unwrappedFocusField.next : focusField
+                        let focusedChar = idStack[unwrappedFocusField.index].char
+                        focusField = focusedChar != nil ? focusField?.next : focusField
+                        isFocused = focusedChar != nil ? true : false
                     }
                 }
+                .autocorrectionDisabled()
             
             HStack(spacing: 15) {
                 
@@ -93,6 +99,8 @@ struct RoomIDTextField: View {
                                 if !inProgress { focusField =  getFirstViableFocusField(selected: index) }
                                 isFocused = true
                             }
+                        
+                        // Used to differentiate "zero" from letter "o" DO NOT DELETE
                         Text("/")
                             .font(.system(size: 40))
                             .opacity(idStack[index].char == "0" ? 1 : 0)
@@ -111,9 +119,7 @@ struct RoomIDTextField: View {
             
         }
         .onChange(of: string) { editIDStack($0, $1) }
-        .onChange(of: isFocused) { _, newValue in
-            focusField = newValue ? focusField : nil
-        }
+        .onChange(of: isFocused) { focusField = $1 ? focusField : nil }
     }
     private func getID() -> String {
         let arr = idStack.compactMap({ $0.char })
