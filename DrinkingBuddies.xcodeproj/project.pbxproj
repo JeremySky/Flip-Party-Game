@@ -19,6 +19,7 @@
 		62307CC72C902A6800DCBADC /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CC62C902A6800DCBADC /* View.swift */; };
 		62307CC92C902AC700DCBADC /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CC82C902AC700DCBADC /* Image.swift */; };
 		628775862C90B63300E7D8C3 /* RoomIDTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628775852C90B63300E7D8C3 /* RoomIDTextField.swift */; };
+		6287758C2C98FE4100E7D8C3 /* ScrollingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6287758B2C98FE4100E7D8C3 /* ScrollingPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		62307CC62C902A6800DCBADC /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		62307CC82C902AC700DCBADC /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		628775852C90B63300E7D8C3 /* RoomIDTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomIDTextField.swift; sourceTree = "<group>"; };
+		6287758B2C98FE4100E7D8C3 /* ScrollingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,21 +115,22 @@
 		62307CB92C8FD5AA00DCBADC /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				62307CBC2C8FE29300DCBADC /* CardView.swift */,
-				62307CBE2C90277500DCBADC /* CardViewComponents */,
+				62307CBE2C90277500DCBADC /* Card */,
 				628775852C90B63300E7D8C3 /* RoomIDTextField.swift */,
+				6287758B2C98FE4100E7D8C3 /* ScrollingPicker.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
 		};
-		62307CBE2C90277500DCBADC /* CardViewComponents */ = {
+		62307CBE2C90277500DCBADC /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				62307CBC2C8FE29300DCBADC /* CardView.swift */,
 				62307CBF2C90283C00DCBADC /* FrontView.swift */,
 				62307CC12C9028F500DCBADC /* MiniFrontView.swift */,
 				62307CC32C90293E00DCBADC /* BackView.swift */,
 			);
-			path = CardViewComponents;
+			path = Card;
 			sourceTree = "<group>";
 		};
 		62307CC52C902A2400DCBADC /* Extensions */ = {
@@ -216,6 +219,7 @@
 				62307CA92C8C070500DCBADC /* ContentView.swift in Sources */,
 				62307CB62C8FD0D600DCBADC /* Card.swift in Sources */,
 				62307CC22C9028F500DCBADC /* MiniFrontView.swift in Sources */,
+				6287758C2C98FE4100E7D8C3 /* ScrollingPicker.swift in Sources */,
 				62307CBD2C8FE29300DCBADC /* CardView.swift in Sources */,
 				62307CA72C8C070500DCBADC /* DrinkingBuddiesApp.swift in Sources */,
 				62307CC42C90293E00DCBADC /* BackView.swift in Sources */,
