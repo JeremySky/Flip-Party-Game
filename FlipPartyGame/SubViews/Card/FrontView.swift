@@ -1,6 +1,6 @@
 //
 //  FrontView.swift
-//  DrinkingBuddies
+//  FlipPartyGame
 //
 //  Created by Jeremy Manlangit on 9/10/24.
 //

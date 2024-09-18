@@ -1,6 +1,6 @@
 //
-//  DrinkingBuddiesApp.swift
-//  DrinkingBuddies
+//  FlipPartyGame.swift
+//  FlipPartyGame
 //
 //  Created by Jeremy Manlangit on 9/6/24.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct DrinkingBuddiesApp: App {
+struct FlipPartyGame: App {
     
     var body: some Scene {
         WindowGroup {

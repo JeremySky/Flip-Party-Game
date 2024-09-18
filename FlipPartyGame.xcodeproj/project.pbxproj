@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		62307CA72C8C070500DCBADC /* PartyBuddiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CA62C8C070500DCBADC /* PartyBuddiesApp.swift */; };
+		62307CA72C8C070500DCBADC /* FlipPartyGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CA62C8C070500DCBADC /* FlipPartyGameApp.swift */; };
 		62307CA92C8C070500DCBADC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CA82C8C070500DCBADC /* ContentView.swift */; };
 		62307CAB2C8C070600DCBADC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62307CAA2C8C070600DCBADC /* Assets.xcassets */; };
 		62307CAE2C8C070600DCBADC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */; };
@@ -20,11 +20,12 @@
 		62307CC92C902AC700DCBADC /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CC82C902AC700DCBADC /* Image.swift */; };
 		628775862C90B63300E7D8C3 /* RoomIDTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628775852C90B63300E7D8C3 /* RoomIDTextField.swift */; };
 		6287758C2C98FE4100E7D8C3 /* ScrollingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6287758B2C98FE4100E7D8C3 /* ScrollingPicker.swift */; };
+		6287758E2C9A863B00E7D8C3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6287758D2C9A863B00E7D8C3 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		62307CA32C8C070500DCBADC /* DrinkingBuddies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrinkingBuddies.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		62307CA62C8C070500DCBADC /* PartyBuddiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyBuddiesApp.swift; sourceTree = "<group>"; };
+		62307CA32C8C070500DCBADC /* FlipPartyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlipPartyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		62307CA62C8C070500DCBADC /* FlipPartyGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipPartyGameApp.swift; sourceTree = "<group>"; };
 		62307CA82C8C070500DCBADC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		62307CAA2C8C070600DCBADC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -37,6 +38,7 @@
 		62307CC82C902AC700DCBADC /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		628775852C90B63300E7D8C3 /* RoomIDTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomIDTextField.swift; sourceTree = "<group>"; };
 		6287758B2C98FE4100E7D8C3 /* ScrollingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingPicker.swift; sourceTree = "<group>"; };
+		6287758D2C9A863B00E7D8C3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +55,7 @@
 		62307C9A2C8C070500DCBADC = {
 			isa = PBXGroup;
 			children = (
-				62307CA52C8C070500DCBADC /* PartyBuddies */,
+				62307CA52C8C070500DCBADC /* FlipPartyGame */,
 				62307CA42C8C070500DCBADC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,15 +63,15 @@
 		62307CA42C8C070500DCBADC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				62307CA32C8C070500DCBADC /* DrinkingBuddies.app */,
+				62307CA32C8C070500DCBADC /* FlipPartyGame.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		62307CA52C8C070500DCBADC /* PartyBuddies */ = {
+		62307CA52C8C070500DCBADC /* FlipPartyGame */ = {
 			isa = PBXGroup;
 			children = (
-				62307CA62C8C070500DCBADC /* PartyBuddiesApp.swift */,
+				62307CA62C8C070500DCBADC /* FlipPartyGameApp.swift */,
 				62307CB72C8FD51C00DCBADC /* Views */,
 				62307CB92C8FD5AA00DCBADC /* SubViews */,
 				62307CB82C8FD52100DCBADC /* ViewModels */,
@@ -78,7 +80,7 @@
 				62307CAA2C8C070600DCBADC /* Assets.xcassets */,
 				62307CAC2C8C070600DCBADC /* Preview Content */,
 			);
-			path = PartyBuddies;
+			path = FlipPartyGame;
 			sourceTree = "<group>";
 		};
 		62307CAC2C8C070600DCBADC /* Preview Content */ = {
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				62307CA82C8C070500DCBADC /* ContentView.swift */,
+				6287758D2C9A863B00E7D8C3 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -145,9 +148,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		62307CA22C8C070500DCBADC /* DrinkingBuddies */ = {
+		62307CA22C8C070500DCBADC /* FlipPartyGame */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 62307CB12C8C070600DCBADC /* Build configuration list for PBXNativeTarget "DrinkingBuddies" */;
+			buildConfigurationList = 62307CB12C8C070600DCBADC /* Build configuration list for PBXNativeTarget "FlipPartyGame" */;
 			buildPhases = (
 				62307C9F2C8C070500DCBADC /* Sources */,
 				62307CA02C8C070500DCBADC /* Frameworks */,
@@ -157,9 +160,9 @@
 			);
 			dependencies = (
 			);
-			name = DrinkingBuddies;
+			name = FlipPartyGame;
 			productName = DrinkingBuddies;
-			productReference = 62307CA32C8C070500DCBADC /* DrinkingBuddies.app */;
+			productReference = 62307CA32C8C070500DCBADC /* FlipPartyGame.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -177,7 +180,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 62307C9E2C8C070500DCBADC /* Build configuration list for PBXProject "PartyBuddies" */;
+			buildConfigurationList = 62307C9E2C8C070500DCBADC /* Build configuration list for PBXProject "FlipPartyGame" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -190,7 +193,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				62307CA22C8C070500DCBADC /* DrinkingBuddies */,
+				62307CA22C8C070500DCBADC /* FlipPartyGame */,
 			);
 		};
 /* End PBXProject section */
@@ -221,7 +224,8 @@
 				62307CC22C9028F500DCBADC /* MiniFrontView.swift in Sources */,
 				6287758C2C98FE4100E7D8C3 /* ScrollingPicker.swift in Sources */,
 				62307CBD2C8FE29300DCBADC /* CardView.swift in Sources */,
-				62307CA72C8C070500DCBADC /* PartyBuddiesApp.swift in Sources */,
+				6287758E2C9A863B00E7D8C3 /* HomeView.swift in Sources */,
+				62307CA72C8C070500DCBADC /* FlipPartyGameApp.swift in Sources */,
 				62307CC42C90293E00DCBADC /* BackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,7 +359,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DrinkingBuddies/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"FlipPartyGame/Preview Content\"";
 				DEVELOPMENT_TEAM = 49HBQH4LWP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -369,7 +373,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JeremyManlangit.DrinkingBuddies;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JeremyManlangit.FlipPartyGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -384,7 +388,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DrinkingBuddies/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"FlipPartyGame/Preview Content\"";
 				DEVELOPMENT_TEAM = 49HBQH4LWP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -398,7 +402,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JeremyManlangit.DrinkingBuddies;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JeremyManlangit.FlipPartyGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -409,7 +413,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		62307C9E2C8C070500DCBADC /* Build configuration list for PBXProject "PartyBuddies" */ = {
+		62307C9E2C8C070500DCBADC /* Build configuration list for PBXProject "FlipPartyGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				62307CAF2C8C070600DCBADC /* Debug */,
@@ -418,7 +422,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		62307CB12C8C070600DCBADC /* Build configuration list for PBXNativeTarget "DrinkingBuddies" */ = {
+		62307CB12C8C070600DCBADC /* Build configuration list for PBXNativeTarget "FlipPartyGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				62307CB22C8C070600DCBADC /* Debug */,
