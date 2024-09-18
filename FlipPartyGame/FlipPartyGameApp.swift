@@ -14,7 +14,7 @@ struct FlipPartyGame: App {
         WindowGroup {
             ZStack {
                 Color.red.opacity(0.85).ignoresSafeArea()
-                RoomIDTextField()
+//                RoomIDTextField()
             }
         }
     }
