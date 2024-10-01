@@ -41,32 +41,14 @@ struct HomeView: View {
                     }
                 
                 Group {
-                    Button(action: {}, label: {
-                        Text("HOST")
-                            .font(.title2.weight(.heavy))
-                            .fontDesign(.rounded)
-                            .foregroundStyle(Color.red.opacity(isValid ? 1 : 0.4))
-                            .frame(height: 45)
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(Color.white)
-                            )
-                    })
-                    .padding(.horizontal, 50)
                     
-                    Button(action: {}, label: {
-                        Text("JOIN")
-                            .font(.title2.weight(.heavy))
-                            .fontDesign(.rounded)
-                            .foregroundStyle(Color.white.opacity(isValid ? 1 : 0.4))
-                            .frame(height: 45)
-                    })
-                    .padding(.horizontal, 50)
+                    Button("HOST", action: {})
+                        .buttonStyle(CustomButtonStylePrimary(isValid, Color.red))
                     
+                    Button("JOIN", action: {})
+                        .buttonStyle(CustomButtonStyleSecondary(isValid, .white))
+    
                 }
-                .disabled(!isValid)
-                .opacity(isValid ? 1 : 0.6)
                 
                 
             }
