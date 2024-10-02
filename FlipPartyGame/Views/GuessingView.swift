@@ -10,6 +10,19 @@ import SwiftUI
 enum GamePhase {
     case one, two, three, four
     
+    var index: Int {
+        switch self {
+        case .one:
+            0
+        case .two:
+            1
+        case .three:
+            2
+        case .four:
+            3
+        }
+    }
+    
     var selections: [Selections] {
         switch self {
         case .one:
@@ -65,23 +78,48 @@ enum GamePhase {
 struct GuessingView: View {
     
     var currentPlayer: User = User.test1
-    var phase: GamePhase = .one
+    var phase: GamePhase = .two
     @State var selection: String?
+    @State var isFlipped = false
     
+    var cards: [Card] = [Card(value: .two, suit: .clubs), Card(value: .queen, suit: .hearts), Card(value: .ten, suit: .hearts), Card(value: .ace, suit: .spades)]
     
     var body: some View {
         VStack {
             
             Header(player: currentPlayer, type: .currentPlayer)
             
+            HStack(spacing: 15) {
+                ForEach(0..<4) { i in
+                    if i == phase.index {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(style: StrokeStyle(lineWidth: 10, dash: [5]))
+                            .opacity(0.6)
+                            .cardStyle(customWidth: 60, customHeight: 60, border: false)
+                    } else {
+                        if phase.index > i {
+                            MiniFrontView(cards[i])
+                        } else {
+                            BackView(cardSize: .mini)
+                        }
+                    }
+                }
+            }
+            .opacity(0.93)
+            .padding(.top)
             
-            CardView(card: Card(value: .eight, suit: .diamonds), style: .standard)
+            
+            CardView(card: cards[phase.index], style: .standard, isFlipped: $isFlipped)
                 .frame(maxHeight: .infinity)
             
             
             HStack(spacing: 20) {
                 ForEach(phase.selections, id: \.self) { selection in
-                    Button(action: { self.selection = selection.rawValue }, label: {
+                    Button(action: {
+                        self.selection = selection.rawValue
+                        isFlipped = true
+                    },
+                           label: {
                         if let imageString = selection.imageString {
                             Image(systemName: imageString)
                                 .resizable()
@@ -97,7 +135,7 @@ struct GuessingView: View {
                                 .background(selection.color)
                         }
                     })
-                    .cardStyle(customWidth: 75, customHeight: 75)
+                    .buttonStyle(Selection())
                 }
             }
             .padding(.bottom)
