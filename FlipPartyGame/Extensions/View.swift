@@ -16,7 +16,7 @@ extension View {
             case .standard:
                 215
             case .mini:
-                80
+                60
             default:
                 customWidth ?? 215
             }
@@ -26,9 +26,19 @@ extension View {
             case .standard:
                 338
             case .mini:
-                100
+                60
             default:
                 customHeight ?? 338
+            }
+        }
+        var borderWidth: CGFloat {
+            switch size {
+            case .standard:
+                4
+            case .mini:
+                3
+            default:
+                4
             }
         }
         
@@ -38,7 +48,7 @@ extension View {
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
-                    .stroke(Color.gray, lineWidth: border ? 4 : 0)
+                    .stroke(Color.gray, lineWidth: border ? borderWidth : 0)
             )
     }
     

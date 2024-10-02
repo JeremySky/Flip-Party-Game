@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomButtonStylePrimary: ButtonStyle {
+struct WhiteBackground: ButtonStyle {
     var isValid: Bool // Pass in the `isValid` state to control the style
     var color: Color
     
@@ -35,7 +35,7 @@ struct CustomButtonStylePrimary: ButtonStyle {
     }
 }
 
-struct CustomButtonStyleSecondary: ButtonStyle {
+struct ColorBackground: ButtonStyle {
     var isValid: Bool // Pass in the `isValid` state to control the style
     var color: Color
     
@@ -48,13 +48,26 @@ struct CustomButtonStyleSecondary: ButtonStyle {
         configuration.label
             .font(.title2.weight(.heavy))
             .fontDesign(.rounded)
-            .foregroundStyle(color.opacity(isValid ? 1 : 0.4))
+            .foregroundStyle(.white)
             .frame(height: 45)
             .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(color)
+            )
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // Optional: Add a press effect
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
             .padding(.horizontal, 50)
             .disabled(!isValid)
             .opacity(isValid ? 1 : 0.6)
+    }
+}
+
+struct Selection: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .cardStyle(customWidth: 75, customHeight: 75)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // Optional: Add a press effect
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }

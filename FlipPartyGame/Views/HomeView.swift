@@ -43,10 +43,10 @@ struct HomeView: View {
                 Group {
                     
                     Button("HOST", action: {})
-                        .buttonStyle(CustomButtonStylePrimary(isValid, Color.red))
+                        .buttonStyle(WhiteBackground(isValid, Color.red))
                     
                     Button("JOIN", action: {})
-                        .buttonStyle(CustomButtonStyleSecondary(isValid, .white))
+                        .buttonStyle(ColorBackground(isValid, Color.red))
     
                 }
                 

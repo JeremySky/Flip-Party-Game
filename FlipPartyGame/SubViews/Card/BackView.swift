@@ -9,11 +9,10 @@ import SwiftUI
 
 struct BackView: View {
     
-    let color: Color
     let cardSize: CardSize
     
     var body: some View {
-        color
+        Color.red
             .opacity(0.96)
             .clipShape(
                 RoundedRectangle(cornerRadius: 6)
@@ -34,7 +33,7 @@ struct BackView: View {
 
 #Preview {
     return VStack(spacing: 30) {
-        BackView(color: .red, cardSize: .standard)
-        BackView(color: .red, cardSize: .mini)
+        BackView(cardSize: .standard)
+        BackView(cardSize: .mini)
     }
 }

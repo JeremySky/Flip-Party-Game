@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum HeaderType {
-    case host(_ roomID: String), currentPlayer
+    case host(_ roomID: String), currentPlayer, take
     
     var rawValue: String {
         switch self {
@@ -16,6 +16,8 @@ enum HeaderType {
             "Host"
         case .currentPlayer:
             "Current Turn"
+        case .take:
+            "Take"
         }
     }
     
@@ -23,7 +25,7 @@ enum HeaderType {
         switch self {
         case .host:
             190
-        case .currentPlayer:
+        default:
             170
         }
     }

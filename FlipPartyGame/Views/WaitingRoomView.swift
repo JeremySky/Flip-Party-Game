@@ -57,7 +57,7 @@ struct WaitingRoomView: View {
                 
                 if isHost {
                     Button("START", action: {})
-                        .buttonStyle(CustomButtonStylePrimary(isValid, host.color.value))
+                        .buttonStyle(WhiteBackground(isValid, host.color.value))
                         .disabled(!isValid)
                 } else {
                     Text("Waiting...")
