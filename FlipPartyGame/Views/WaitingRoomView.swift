@@ -11,7 +11,7 @@ struct WaitingRoomView: View {
     
     @State var users: [User] = User.testArr
     @State var host: User = .test1
-    let roomID: [Character] = ["B", "3", "4", "R"]
+    let roomID: String = "B34R"
     @State var isHost = false
     
     
@@ -19,8 +19,7 @@ struct WaitingRoomView: View {
     
     var body: some View {
         VStack {
-            header()
-                .frame(height: 190)
+            Header(player: host, type: .host(roomID))
             
             VStack(spacing: 20) {
                 
@@ -67,51 +66,6 @@ struct WaitingRoomView: View {
                 }
             }
             .frame(height: 100)
-        }
-    }
-    
-    private func header() -> some View {
-        ZStack {
-            Group {
-                host.color.value
-                Color(.gray).opacity(0.15)
-            }
-                .ignoresSafeArea()
-            VStack {
-                HStack {
-                    ForEach(roomID, id: \.self) { char in
-                        Text("\(char)")
-                            .font(.body.weight(.heavy))
-                            .fontDesign(.rounded)
-                            .opacity(0.85)
-                            .cardStyle(customWidth: 40, customHeight: 40, border: false)
-                    }
-                }
-                HStack {
-                    Image(host.icon.string)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80)
-                        .padding(6)
-                        .background( Circle().opacity(0.3))
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("HOST")
-                            .font(.caption.weight(.bold))
-                            .fontDesign(.rounded)
-                            .padding(.leading, 5)
-                        Text(host.name)
-                            .font(.largeTitle.weight(.bold))
-                            .fontDesign(.rounded)
-                    }
-                    .padding(.trailing, 30)
-                }
-                .foregroundStyle(.white)
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-                .background(
-                    RoundedRectangle(cornerRadius: 10).opacity(0.2)
-                )
-            }
         }
     }
 }
