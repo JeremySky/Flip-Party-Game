@@ -16,7 +16,9 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            Color.red.ignoresSafeArea().opacity(0.88)
+            Color.red.ignoresSafeArea()
+            LinearGradient(colors: [.white.opacity(0.2), .black.opacity(0.4)], startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
             VStack {
                 Image("flip")
                     .renderingMode(.template)
@@ -44,9 +46,12 @@ struct HomeView: View {
                     
                     Button("HOST", action: {})
                         .buttonStyle(WhiteBackground(isValid, Color.red))
+                        .padding(.horizontal, 40)
+                        .padding(.bottom, 5)
                     
                     Button("JOIN", action: {})
                         .buttonStyle(ColorBackground(isValid, Color.red))
+                        .padding(.horizontal, 40)
     
                 }
                 

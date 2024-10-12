@@ -29,7 +29,6 @@ struct WhiteBackground: ButtonStyle {
             )
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // Optional: Add a press effect
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
-            .padding(.horizontal, 50)
             .disabled(!isValid)
             .opacity(isValid ? 1 : 0.6)
     }
@@ -57,7 +56,6 @@ struct ColorBackground: ButtonStyle {
             )
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // Optional: Add a press effect
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
-            .padding(.horizontal, 50)
             .disabled(!isValid)
             .opacity(isValid ? 1 : 0.6)
     }
@@ -69,5 +67,14 @@ struct Selection: ButtonStyle {
             .cardStyle(customWidth: 75, customHeight: 75)
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // Optional: Add a press effect
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+    }
+}
+
+
+struct AddAnimation: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // Optional: Add a press effect
+            .animation(.easeOut(duration: 0.04), value: configuration.isPressed)
     }
 }

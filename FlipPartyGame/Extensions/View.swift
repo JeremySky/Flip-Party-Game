@@ -58,4 +58,27 @@ extension View {
             self.rotationEffect(.degrees(180))
         }
     }
+    
+    func circleBackground(diameter: CGFloat?, _ color: Color, _ shadow: Bool) -> some View {
+        self
+            .frame(width: diameter, height: diameter)
+            .background(Circle().foregroundStyle(color)
+                .shadow(color: .black.opacity(shadow ? 1 : 0), radius: 5, x: 0, y: 2)
+            )
+    }
+}
+
+struct DisableButtonModifier: ViewModifier {
+    var isDisabled: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .disabled(isDisabled)
+            .opacity(isDisabled ? 0.5 : 1)
+    }
+}
+extension View {
+    func disableButton(if condition: Bool) -> some View {
+        self.modifier(DisableButtonModifier(isDisabled: condition))
+    }
 }
