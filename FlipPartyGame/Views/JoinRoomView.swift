@@ -12,32 +12,25 @@ struct JoinRoomView: View {
     @StateObject var viewModel = JoinRoomViewModel()
     
     var body: some View {
-        ZStack {
-            Color.red.opacity(0.9).ignoresSafeArea()
-            LinearGradient(colors: [.white.opacity(0.2), .black.opacity(0.4)], startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea()
-            VStack {
-                
-                RoomIDTextField(viewModel: viewModel)
-                
-                Button(action: {}, label: {
-                    Text("JOIN")
-                        .font(.title2.weight(.heavy))
-                        .fontDesign(.rounded)
-                        .foregroundStyle(Color.red)
-                        .frame(height: 45)
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(Color.white)
-                        )
-                })
-                .padding(.horizontal, 50)
-                .disabled(!viewModel.roomIdIsValid)
-                .opacity(viewModel.roomIdIsValid ? 1 : 0.4)
-                
-            }
+        VStack {
+            
+            //MARK: -- ROOM TEXT FIELD...
+            RoomIDTextField(viewModel: viewModel)
+            
+            //MARK: -- ACTION BUTTON...
+            Button("JOIN", action: {})
+                .buttonStyle(WhiteBackground(viewModel.roomIdIsValid, .red))
+                .padding(.horizontal, 40)
+            
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            ZStack {
+                Color.red.ignoresSafeArea()
+                LinearGradient(colors: [.white.opacity(0.2), .black.opacity(0.4)], startPoint: .top, endPoint: .bottom)
+                    .ignoresSafeArea()
+            }
+        )
     }
 }
 

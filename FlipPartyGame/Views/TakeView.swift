@@ -19,9 +19,13 @@ struct TakeView: View {
     
     var body: some View {
         VStack {
+            
+            //MARK: -- HEADER...
             Header(player: user, type: .take)
             Spacer()
             
+            
+            //MARK: -- POINTS REMAINING...
             ZStack {
                 Circle()
                     .frame(width: 215)
@@ -38,6 +42,7 @@ struct TakeView: View {
             
             Spacer()
             
+            //MARK: -- ACTION BUTTONS...
             actionButtons()
                 .padding(.horizontal, 40)
         }

@@ -78,7 +78,7 @@ enum GamePhase {
 struct GuessingView: View {
     
     var currentPlayer: User = User.test1
-    var phase: GamePhase = .two
+    var phase: GamePhase = .one
     @State var selection: String?
     @State var isFlipped = false
     
