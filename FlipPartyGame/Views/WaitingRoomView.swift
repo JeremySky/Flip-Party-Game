@@ -32,8 +32,7 @@ struct WaitingRoomView: View {
                             .background( Circle().foregroundStyle(.white).opacity(0.3) )
                             .padding(5)
                         Text(user.name)
-                            .font(.title2.weight(.bold))
-                            .fontDesign(.rounded)
+                            .font(.system(size: 30, weight: .bold, design: .rounded))
                             .foregroundStyle(.white)
                             .padding(.trailing, 30)
                     }
