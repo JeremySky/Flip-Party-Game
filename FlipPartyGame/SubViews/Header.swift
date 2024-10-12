@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum HeaderType {
-    case host(_ roomID: String), currentPlayer, take
+    case host(_ roomID: String), currentPlayer, take, give(_ points: Int)
     
     var rawValue: String {
         switch self {
@@ -18,6 +18,8 @@ enum HeaderType {
             "Current Turn"
         case .take:
             "Take"
+        case .give:
+            "Give"
         }
     }
     
@@ -25,6 +27,8 @@ enum HeaderType {
         switch self {
         case .host:
             190
+        case .give:
+            200
         default:
             170
         }
@@ -39,6 +43,12 @@ struct Header: View {
     var body: some View {
         ZStack {
             player.color.value.ignoresSafeArea()
+            LinearGradient(
+                gradient: Gradient(colors: [Color.black.opacity(0.3), .clear]), // Define the gradient (or use other colors)
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             VStack {
                 
                 switch type {
@@ -56,30 +66,45 @@ struct Header: View {
                     EmptyView()
                 }
                 
-                HStack {
-                    Image(player.icon.string)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80)
-                        .padding(6)
-                        .background( Circle().opacity(0.3))
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(type.rawValue)
-                            .font(.caption.weight(.bold))
-                            .fontDesign(.rounded)
-                            .padding(.leading, 5)
-                        Text(player.name)
-                            .font(.largeTitle.weight(.bold))
-                            .fontDesign(.rounded)
+                switch type {
+                case .give(let points):
+                    //MARK: -- POINTS REMAINING...
+                    ZStack {
+                        VStack(spacing: -10) {
+                            Text("\(points)")
+                                .font(.system(size: 90, weight: .heavy, design: .rounded))
+                            Text("Points")
+                        }
+                        .font(.system(size: 15, weight: .heavy, design: .rounded))
+                        .circleBackground(diameter: 164, .white, true)
                     }
-                    .padding(.trailing, 30)
+                    .padding(.bottom)
+                default:
+                    HStack {
+                        Image(player.icon.string)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80)
+                            .padding(6)
+                            .background( Circle().opacity(0.3))
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text(type.rawValue)
+                                .font(.caption.weight(.bold))
+                                .fontDesign(.rounded)
+                                .padding(.leading, 5)
+                            Text(player.name)
+                                .font(.largeTitle.weight(.bold))
+                                .fontDesign(.rounded)
+                        }
+                        .padding(.trailing, 30)
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10).opacity(0.2)
+                    )
                 }
-                .foregroundStyle(.white)
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-                .background(
-                    RoundedRectangle(cornerRadius: 10).opacity(0.2)
-                )
             }
         }
         .frame(height: type.height)
