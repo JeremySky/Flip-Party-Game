@@ -95,7 +95,7 @@ enum IconSelection: CaseIterable {
 }
 
 
-struct User: Identifiable {
+struct User: Identifiable, Hashable {
     let id: UUID
     var name: String
     var icon: IconSelection
