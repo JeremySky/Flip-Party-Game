@@ -50,7 +50,8 @@ struct WaitingRoomView: View {
             ZStack {
                 Group {
                     host.color.value
-                    Color(.gray).opacity(0.15)
+                    LinearGradient(colors: [.white.opacity(0.2), .black.opacity(0.4)], startPoint: .top, endPoint: .bottom)
+                        .ignoresSafeArea()
                 }
                 .ignoresSafeArea()
                 

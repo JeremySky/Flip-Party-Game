@@ -43,11 +43,8 @@ struct Header: View {
     var body: some View {
         ZStack {
             player.color.value.ignoresSafeArea()
-            LinearGradient(
-                gradient: Gradient(colors: [Color.black.opacity(0.3), .clear]), // Define the gradient (or use other colors)
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            LinearGradient(colors: [.black.opacity(0.4), .white.opacity(0.2)], startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
             .ignoresSafeArea()
             VStack {
                 

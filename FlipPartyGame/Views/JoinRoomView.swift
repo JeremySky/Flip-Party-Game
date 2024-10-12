@@ -14,6 +14,8 @@ struct JoinRoomView: View {
     var body: some View {
         ZStack {
             Color.red.opacity(0.9).ignoresSafeArea()
+            LinearGradient(colors: [.white.opacity(0.2), .black.opacity(0.4)], startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
             VStack {
                 
                 RoomIDTextField(viewModel: viewModel)
