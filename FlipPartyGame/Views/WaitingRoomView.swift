@@ -12,16 +12,23 @@ struct WaitingRoomView: View {
     @State var users: [User] = User.testArr
     @State var host: User = .test1
     let roomID: String = "B34R"
-    @State var isHost = false
+    let isHost = false
+    
+    let waitingText: String = "Waiting..."
+    @State private var waveOffset: [CGFloat] = Array(repeating: 0, count: "Waiting...".count)
     
     
     var isValid: Bool { users.count >= 2 }
     
     var body: some View {
         VStack {
+            
+            //MARK: -- HEADER...
             Header(player: host, type: .host(roomID))
             
-            VStack(spacing: 20) {
+            
+            //MARK: -- PLAYERS...
+            VStack(spacing: 25) {
                 
                 ForEach(users) { user in
                     HStack {
@@ -30,13 +37,13 @@ struct WaitingRoomView: View {
                             .scaledToFit()
                             .padding(5)
                             .background( Circle().foregroundStyle(.white).opacity(0.3) )
-                            .padding(5)
+                            .padding(.vertical, 5)
+                            .padding(.leading, -25)
                         Text(user.name)
                             .font(.system(size: 30, weight: .bold, design: .rounded))
                             .foregroundStyle(.white)
-                            .padding(.trailing, 30)
                     }
-                    .frame(height: 70)
+                    .frame(height: 60)
                     .frame(maxWidth: .infinity)
                     .background(
                         RoundedRectangle(cornerRadius: 6).foregroundStyle(user.color.value)
@@ -47,25 +54,46 @@ struct WaitingRoomView: View {
             }
             .frame(maxHeight: .infinity)
             
+            
+            //MARK: ACTION BUTTON / WAITING TEXT...
             ZStack {
-                Group {
-                    host.color.value
-                    LinearGradient(colors: [.white.opacity(0.2), .black.opacity(0.4)], startPoint: .top, endPoint: .bottom)
-                        .ignoresSafeArea()
-                }
-                .ignoresSafeArea()
-                
                 if isHost {
-                    Button("START", action: {})
-                        .buttonStyle(WhiteBackground(isValid, host.color.value))
-                        .disabled(!isValid)
+                    Button(action: {}, label: {
+                        ZStack {
+                            Text("Start")
+                                .font(.system(size: 45, weight: .black, design: .rounded))
+                                .foregroundStyle(host.color.value)
+                            Text("Start")
+                                .font(.system(size: 45, weight: .black, design: .rounded))
+                                .foregroundStyle(.black.opacity(0.2).gradient)
+                        }
+                    })
+                    .buttonStyle(AddAnimation())
                 } else {
-                    Text("Waiting...")
-                        .font(.system(size: 30, weight: .black, design: .rounded))
-                        .foregroundStyle(.white)
+                    
+                    HStack(spacing: 3) {
+                        ForEach(Array(waitingText.enumerated()), id: \.0) { i, char in
+                            Text(String(char))
+                                .font(.system(size: 45, weight: .black, design: .rounded))
+                                .foregroundStyle(.gray)
+                                .offset(y: waveOffset[i])
+                        }
+                    }
+                    
                 }
             }
             .frame(height: 100)
+        }
+        .onAppear(perform: { startWaveAnimation() })
+    }
+    
+    private func startWaveAnimation() {
+        for index in waveOffset.indices {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.1) {
+                withAnimation(.easeInOut(duration: 0.4).repeatForever(autoreverses: true)) {
+                    waveOffset[index] = -6
+                }
+            }
         }
     }
 }
