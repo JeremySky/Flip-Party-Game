@@ -68,7 +68,7 @@ struct WaitingRoomView: View {
                                 .foregroundStyle(.black.opacity(0.2).gradient)
                         }
                     })
-                    .buttonStyle(AddAnimation())
+                    .buttonStyle(CustomAnimation())
                 } else {
                     
                     HStack(spacing: 3) {
