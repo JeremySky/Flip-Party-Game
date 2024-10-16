@@ -176,7 +176,7 @@ struct GiveView: View {
                     )
             }
         }
-        .buttonStyle(AddAnimation())
+        .buttonStyle(CustomAnimation())
     }
     
     
@@ -218,7 +218,7 @@ struct GiveView: View {
                 )
             
         }
-        .buttonStyle(AddAnimation())
+        .buttonStyle(CustomAnimation())
     }
     
     
@@ -253,7 +253,7 @@ struct GiveView: View {
                     )
                     .foregroundStyle(.white)
                 }
-                .buttonStyle(AddAnimation())
+                .buttonStyle(CustomAnimation())
                 .padding(.bottom)
                 
                 
@@ -270,7 +270,7 @@ struct GiveView: View {
                     .frame(width: 70, height: 70)
                     .fontWeight(.medium)
                     .padding(.bottom)
-                    .buttonStyle(AddAnimation())
+                    .buttonStyle(CustomAnimation())
                 }
                 .frame(width: 170 ,height: 70)
             }
