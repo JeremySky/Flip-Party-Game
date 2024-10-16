@@ -10,9 +10,6 @@ import SwiftUI
 struct FrontView: View {
     let card: Card
     
-    var cardColor: Color { card.getColor() }
-    var suitImageString: String { card.getSuit() }
-    
     init(_ card: Card) {
         self.card = card
     }
@@ -22,11 +19,11 @@ struct FrontView: View {
             
             // Card Border...
             VStack(spacing: 0) {
-                Text(card.getText())
+                Text(card.text)
                     .font(.system(size: 32, weight: .bold, design: .rounded))
-                    .foregroundStyle(cardColor)
-                Image(systemName: suitImageString)
-                    .suitFormat(color: cardColor)
+                    .foregroundStyle(card.color)
+                Image(systemName: card.imageSystemName)
+                    .suitFormat(color: card.color)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding(.vertical, 2)
@@ -47,10 +44,6 @@ extension FrontView {
         
         let card: Card
         
-        var cardValueString: String { card.getText() }
-        var suitImageString: String { card.getSuit() }
-        var cardColor: Color { card.getColor() }
-        
         init(_ card: Card) {
             self.card = card
         }
@@ -61,12 +54,12 @@ extension FrontView {
                     
                 case .ace:
                     ZStack {
-                        Image(systemName: suitImageString)
+                        Image(systemName: card.imageSystemName)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 104)
-                            .foregroundStyle(cardColor)
-                        Text(cardValueString)
+                            .foregroundStyle(card.color)
+                        Text(card.text)
                             .font(.system(size: 60, weight: .heavy, design: .rounded))
                             .foregroundStyle(.white)
                             .offset(
@@ -76,18 +69,18 @@ extension FrontView {
                     
                 case .jack, .queen, .king:
                     ZStack {
-                        Image(systemName: suitImageString)
+                        Image(systemName: card.imageSystemName)
                             .resizable()
                             .scaledToFit()
                             .frame(width: card.suit == .clubs ? 110 : 100)
-                            .foregroundStyle(cardColor)
+                            .foregroundStyle(card.color)
                         Image(systemName: "crown.fill")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 55)
                             .foregroundStyle(Color.yellow)
                             .offset(y: -75)
-                        Text(cardValueString)
+                        Text(card.text)
                             .font(.system(size: 70, weight: .black, design: .rounded))
                             .foregroundStyle(.white)
                             .offset(
@@ -117,8 +110,8 @@ extension FrontView {
                             getSuitImage(row: 2, column: 2)
                         }
                         if card.value == .five {
-                            Image(systemName: suitImageString)
-                                .suitFormat(color: cardColor)
+                            Image(systemName: card.imageSystemName)
+                                .suitFormat(color: card.color)
                         }
                     }
                     
@@ -129,8 +122,8 @@ extension FrontView {
                         }
                         if card.value == .seven {
                             VStack(spacing: 44) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
+                                Image(systemName: card.imageSystemName)
+                                    .suitFormat(color: card.color)
                                 Spacer().frame(height: 28)
                             }
                         }
@@ -143,10 +136,10 @@ extension FrontView {
                         }
                         if card.value != .eight {
                             VStack(spacing: 84) {
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
-                                Image(systemName: suitImageString)
-                                    .suitFormat(color: cardColor)
+                                Image(systemName: card.imageSystemName)
+                                    .suitFormat(color: card.color)
+                                Image(systemName: card.imageSystemName)
+                                    .suitFormat(color: card.color)
                                     .opacity(card.value == .ten ? 1 : 0)
                             }
                         }
@@ -162,11 +155,11 @@ extension FrontView {
         func getSuitImage(row: Int, column: Int) -> some View {
             ForEach(0..<row, id: \.self) { iRow in
                 HStack(spacing: 40) {
-                    Image(systemName: suitImageString)
-                        .suitFormat(color: cardColor)
+                    Image(systemName: card.imageSystemName)
+                        .suitFormat(color: card.color)
                     if column > 1 {
-                        Image(systemName: suitImageString)
-                            .suitFormat(color: cardColor)
+                        Image(systemName: card.imageSystemName)
+                            .suitFormat(color: card.color)
                     }
                 }
             }

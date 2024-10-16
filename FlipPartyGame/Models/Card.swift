@@ -8,21 +8,17 @@
 import Foundation
 import SwiftUI
 
-enum SuitColor: Codable {
-    case red, black
-}
-
 enum CardSuit: String, Codable, CaseIterable, Identifiable {
     case diamonds, hearts, spades, clubs
     
     var id: String { self.rawValue }
     
-    var color: SuitColor {
+    var color: Color {
         switch self {
         case .diamonds, .hearts:
-                .red
+            Color.red
         case .spades, .clubs:
-                .black
+            Color.black
         }
     }
     
@@ -80,9 +76,10 @@ enum CardValue: String, Codable, CaseIterable, Identifiable {
 struct Card: Codable, Hashable {
     var value: CardValue
     var suit: CardSuit
-    var color: SuitColor { return suit.color}
     
-    func getText() -> String {
+    var color: Color { return suit.color }
+    
+    var text: String {
         switch self.value {
         case .ace:
             "A"
@@ -113,7 +110,7 @@ struct Card: Codable, Hashable {
         }
     }
     
-    func getSuit() -> String {
+    var imageSystemName: String {
         switch self.suit {
         case .diamonds:
             "suit.diamond.fill"
@@ -125,13 +122,20 @@ struct Card: Codable, Hashable {
             "suit.club.fill"
         }
     }
-    
-    func getColor() -> Color {
-        switch self.color {
-        case .red:
-            return Color.red
-        case .black:
-            return Color.black
+}
+
+extension Card {
+    static var sortedDeck: [Card] {
+        var returnDeck: [Card] = []
+        
+        for suit in CardSuit.allCases {
+            for value in CardValue.allCases {
+                returnDeck.append(Card(value: value, suit: suit))
+            }
         }
+        
+        return returnDeck
     }
+    
+    static var shuffledDeck: [Card] { Card.sortedDeck.shuffled() }
 }

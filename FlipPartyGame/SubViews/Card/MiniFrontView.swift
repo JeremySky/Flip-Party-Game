@@ -10,23 +10,19 @@ import SwiftUI
 struct MiniFrontView: View {
     let card: Card
     
-    var cardColor: Color { card.getColor() }
-    var suitImageString: String { card.getSuit() }
-    var cardValueString: String { card.getText() }
-    
     init(_ card: Card) {
         self.card = card
     }
     
     var body: some View {
         ZStack {
-            Image(systemName: suitImageString)
+            Image(systemName: card.imageSystemName)
                 .resizable()
                 .scaledToFit()
                 .padding(9)
-                .foregroundStyle(cardColor)
-            Text(cardValueString)
-                .font(.system(size: 25, weight: .black, design: .rounded))
+                .foregroundStyle(card.color)
+            Text(card.text)
+                .font(.system(size: 20, weight: .black, design: .rounded))
                 .foregroundStyle(.white)
         }
         .cardStyle(size: .mini)
