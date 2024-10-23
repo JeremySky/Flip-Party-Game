@@ -265,44 +265,8 @@ struct StandbyView: View {
         @State var viewModel: StandbyViewModel
         
         init() {
-            let players = User.testArr
-            let deck = Card.shuffledDeck
-            let currentCardIndex = 9
-            
-            let currentPlayer = players[currentCardIndex % players.count]
-            
-            var question: Question? {
-                for question in Question.allCases {
-                    let questionIndex = (currentCardIndex / players.count)
-                    if question.index == questionIndex { return question }
-                }
-                
-                return nil
-            }
-            
-            var hands: [UUID:[Card]] {
-                var data: [UUID:[Card]] = Dictionary(uniqueKeysWithValues: players.map { ($0.id, []) })
-                var cardIndex = 0
-                var playerIndex = 0
-                
-                while cardIndex < currentCardIndex {
-                    
-                    let id = players[playerIndex].id
-                    
-                    if data[id] != nil {
-                        data[id]!.append(deck[cardIndex])
-                    }
-                    
-                    playerIndex = (playerIndex + 1) % players.count
-                    cardIndex += 1
-                }
-                
-                return data
-            }
-            
-            let gameManager = GameManager(players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, question: question!)
+            let gameManager = GameManager.preview
 
-            
             self.gameManager = gameManager
             self.viewModel = StandbyViewModel(gameManager: gameManager)
         }
@@ -314,33 +278,3 @@ struct StandbyView: View {
     
     return StandbyViewPreview()
 }
-
-//
-//
-//#Preview {
-//    struct StandbyPreview: View {
-//        
-//        @StateObject var manager: GameManager
-//        @StateObject var viewModel: StandbyViewModel
-//        
-//        init() {
-//            let question = Question.three
-//            let deck = Card.shuffledDeck
-//            let currentCardIndex = 9
-//            let players = User.testArr
-//            let currentPlayer = players[currentCardIndex % 4]
-//            let hands = Dictionary(uniqueKeysWithValues: User.testArr.map { ($0.id, [Card(value: .ace, suit: .clubs)]) })
-//            // Assigning the GameManager
-//            let manager = GameManager(question: question, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, players: players, hands: hands)
-//            // Create StandbyViewModel based on the GameManager
-//            _manager = StateObject(wrappedValue: manager)
-//            _viewModel = StateObject(wrappedValue: StandbyViewModel(gameManager: manager))
-//        }
-//        
-//        var body: some View {
-//            StandbyView(viewModel: viewModel, selectedPlayer: manager.currentPlayer)
-//        }
-//    }
-//    
-//    return StandbyPreview()
-//}

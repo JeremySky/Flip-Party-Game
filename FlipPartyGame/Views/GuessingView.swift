@@ -179,6 +179,9 @@ struct GuessingView: View {
     }
 }
 
+
+
+
 #Preview {
     struct GuessingViewPreview: View {
         
@@ -186,45 +189,10 @@ struct GuessingView: View {
         @State var viewModel: GuessingViewModel
         @State var isPresenting: Bool = true
         
-        init() {
-            let players = User.testArr
-            let deck = Card.shuffledDeck
-            let currentCardIndex = 15
-            
-            let currentPlayer = players[currentCardIndex % players.count]
-            
-            var question: Question? {
-                for question in Question.allCases {
-                    let questionIndex = (currentCardIndex / players.count)
-                    if question.index == questionIndex { return question }
-                }
-                
-                return nil
-            }
-            
-            var hands: [UUID:[Card]] {
-                var data: [UUID:[Card]] = Dictionary(uniqueKeysWithValues: players.map { ($0.id, []) })
-                var cardIndex = 0
-                var playerIndex = 0
-                
-                while cardIndex <= currentCardIndex {
-                    
-                    let id = players[playerIndex].id
-                    
-                    if data[id] != nil {
-                        data[id]!.append(deck[cardIndex])
-                    }
-                    
-                    playerIndex = (playerIndex + 1) % players.count
-                    cardIndex += 1
-                }
-                
-                return data
-            }
-            
-            let gameManager = GameManager(players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, question: question!)
+        init(currentCardIndex: Int) {
+            let gameManager = GameManager.preview
+            let currentPlayer = gameManager.currentPlayer
 
-            
             self.gameManager = gameManager
             self.viewModel = GuessingViewModel(gameManager: gameManager, user: currentPlayer)
         }
@@ -238,32 +206,5 @@ struct GuessingView: View {
         }
     }
     
-    return GuessingViewPreview()
+    return GuessingViewPreview(currentCardIndex: 12)
 }
-//
-//#Preview {
-//    
-//    struct GuessingPreview: View {
-//        
-//        var manager : GameManager
-//        var viewModel: GuessingViewModel
-//        
-//        init() {
-//            let question = Question.three
-//            let deck = Card.shuffledDeck
-//            let currentCardIndex = 9
-//            let players = User.testArr
-//            let currentPlayer = players[currentCardIndex % 4]
-//            let hands: [UUID:[Card]] = Dictionary(uniqueKeysWithValues: User.testArr.map { ($0.id, [Card(value: .ace, suit: .clubs)]) })
-//            // Assigning the GameManager
-//            let manager = GameManager(question: question, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, players: players, hands: hands)
-//            self.viewModel = GuessingViewModel(gameManager: manager)
-//        }
-//        
-//        var body: some View {
-//            GuessingView(viewModel: viewModel)
-//        }
-//    }
-//    
-//    return GuessingPreview()
-//}
