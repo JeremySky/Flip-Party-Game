@@ -76,6 +76,7 @@ enum CardValue: String, Codable, CaseIterable, Identifiable {
 struct Card: Codable, Hashable {
     var value: CardValue
     var suit: CardSuit
+    var description: String { self.value.rawValue + " of " + self.suit.rawValue }
     
     var color: Color { return suit.color }
     

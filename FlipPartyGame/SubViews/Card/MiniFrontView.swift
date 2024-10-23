@@ -19,7 +19,7 @@ struct MiniFrontView: View {
             Image(systemName: card.imageSystemName)
                 .resizable()
                 .scaledToFit()
-                .padding(9)
+                .padding(card.suit == .diamonds ? 6 : 7)
                 .foregroundStyle(card.color)
             Text(card.text)
                 .font(.system(size: 20, weight: .black, design: .rounded))
@@ -30,5 +30,5 @@ struct MiniFrontView: View {
 }
 
 #Preview {
-    MiniFrontView(Card(value: .king, suit: .spades))
+    MiniFrontView(Card(value: .king, suit: .diamonds))
 }
