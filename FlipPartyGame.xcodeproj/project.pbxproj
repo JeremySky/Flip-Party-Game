@@ -36,7 +36,15 @@
 		62EB19CD2CBF42AA00D11FF5 /* GuessingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19CC2CBF42AA00D11FF5 /* GuessingViewModel.swift */; };
 		62EB19D02CBF42D500D11FF5 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19CF2CBF42D500D11FF5 /* GameManager.swift */; };
 		62EB19D22CBF983F00D11FF5 /* StandbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19D12CBF983F00D11FF5 /* StandbyView.swift */; };
-		62EB19D42CC327E900D11FF5 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19D32CC327E900D11FF5 /* Selection.swift */; };
+		62EB19D42CC327E900D11FF5 /* QuestionSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19D32CC327E900D11FF5 /* QuestionSelection.swift */; };
+		62EB19D62CC9645400D11FF5 /* GiveTakeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19D52CC9645400D11FF5 /* GiveTakeSelectionView.swift */; };
+		62EB19DA2CD2E69D00D11FF5 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19D92CD2E69D00D11FF5 /* Sticker.swift */; };
+		62EB19DF2CD2E75100D11FF5 /* CardValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19DE2CD2E75100D11FF5 /* CardValue.swift */; };
+		62EB19E12CD2E76500D11FF5 /* CardSuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19E02CD2E76500D11FF5 /* CardSuit.swift */; };
+		62EB19E32CD2E77F00D11FF5 /* IconSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19E22CD2E77F00D11FF5 /* IconSelection.swift */; };
+		62EB19E52CD2E7A500D11FF5 /* ColorSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19E42CD2E7A500D11FF5 /* ColorSelection.swift */; };
+		62EB19E92CD2E8BD00D11FF5 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19E82CD2E8BD00D11FF5 /* Phase.swift */; };
+		62EB19EB2CDD6F3800D11FF5 /* GiveTakeSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB19EA2CDD6F3800D11FF5 /* GiveTakeSelectionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,7 +78,15 @@
 		62EB19CC2CBF42AA00D11FF5 /* GuessingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessingViewModel.swift; sourceTree = "<group>"; };
 		62EB19CF2CBF42D500D11FF5 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		62EB19D12CBF983F00D11FF5 /* StandbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandbyView.swift; sourceTree = "<group>"; };
-		62EB19D32CC327E900D11FF5 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
+		62EB19D32CC327E900D11FF5 /* QuestionSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionSelection.swift; sourceTree = "<group>"; };
+		62EB19D52CC9645400D11FF5 /* GiveTakeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveTakeSelectionView.swift; sourceTree = "<group>"; };
+		62EB19D92CD2E69D00D11FF5 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
+		62EB19DE2CD2E75100D11FF5 /* CardValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardValue.swift; sourceTree = "<group>"; };
+		62EB19E02CD2E76500D11FF5 /* CardSuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSuit.swift; sourceTree = "<group>"; };
+		62EB19E22CD2E77F00D11FF5 /* IconSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelection.swift; sourceTree = "<group>"; };
+		62EB19E42CD2E7A500D11FF5 /* ColorSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelection.swift; sourceTree = "<group>"; };
+		62EB19E82CD2E8BD00D11FF5 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
+		62EB19EA2CDD6F3800D11FF5 /* GiveTakeSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveTakeSelectionViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +103,6 @@
 		62307C9A2C8C070500DCBADC = {
 			isa = PBXGroup;
 			children = (
-				625604FC2CB9985500C66D64 /* GiveViewModel.swift */,
 				62307CA52C8C070500DCBADC /* FlipPartyGame */,
 				62307CA42C8C070500DCBADC /* Products */,
 			);
@@ -128,11 +143,10 @@
 		62307CB42C8FD0C600DCBADC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				62EB19DB2CD2E6D700D11FF5 /* Enums */,
 				62307CB52C8FD0D600DCBADC /* Card.swift */,
 				625604FF2CB9F84C00C66D64 /* CustomError.swift */,
 				628775952C9B949000E7D8C3 /* User.swift */,
-				625605012CBF177D00C66D64 /* Question.swift */,
-				62EB19D32CC327E900D11FF5 /* Selection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -144,10 +158,11 @@
 				6287758D2C9A863B00E7D8C3 /* HomeView.swift */,
 				6287758F2C9B580D00E7D8C3 /* JoinRoomView.swift */,
 				628775932C9B8F1B00E7D8C3 /* WaitingRoomView.swift */,
+				62EB19D12CBF983F00D11FF5 /* StandbyView.swift */,
 				628775992CABBB1C00E7D8C3 /* GuessingView.swift */,
+				62EB19D52CC9645400D11FF5 /* GiveTakeSelectionView.swift */,
 				6287759D2CADFABD00E7D8C3 /* TakeView.swift */,
 				629FDA162CB0918800D74D15 /* GiveView.swift */,
-				62EB19D12CBF983F00D11FF5 /* StandbyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -155,8 +170,10 @@
 		62307CB82C8FD52100DCBADC /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				625604FC2CB9985500C66D64 /* GiveViewModel.swift */,
 				628775912C9B82AA00E7D8C3 /* JoinRoomViewModel.swift */,
 				62EB19CC2CBF42AA00D11FF5 /* GuessingViewModel.swift */,
+				62EB19EA2CDD6F3800D11FF5 /* GiveTakeSelectionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -199,6 +216,37 @@
 				62EB19CF2CBF42D500D11FF5 /* GameManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		62EB19DB2CD2E6D700D11FF5 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				62EB19E72CD2E7C500D11FF5 /* User */,
+				62EB19E62CD2E7B200D11FF5 /* Cards */,
+				62EB19D92CD2E69D00D11FF5 /* Sticker.swift */,
+				62EB19D32CC327E900D11FF5 /* QuestionSelection.swift */,
+				625605012CBF177D00C66D64 /* Question.swift */,
+				62EB19E82CD2E8BD00D11FF5 /* Phase.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		62EB19E62CD2E7B200D11FF5 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				62EB19E02CD2E76500D11FF5 /* CardSuit.swift */,
+				62EB19DE2CD2E75100D11FF5 /* CardValue.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		62EB19E72CD2E7C500D11FF5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				62EB19E42CD2E7A500D11FF5 /* ColorSelection.swift */,
+				62EB19E22CD2E77F00D11FF5 /* IconSelection.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,14 +320,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				625605002CB9F84C00C66D64 /* CustomError.swift in Sources */,
+				62EB19DF2CD2E75100D11FF5 /* CardValue.swift in Sources */,
+				62EB19E92CD2E8BD00D11FF5 /* Phase.swift in Sources */,
 				62EB19D22CBF983F00D11FF5 /* StandbyView.swift in Sources */,
+				62EB19D62CC9645400D11FF5 /* GiveTakeSelectionView.swift in Sources */,
 				6287759C2CADEA5B00E7D8C3 /* Header.swift in Sources */,
 				628775942C9B8F1B00E7D8C3 /* WaitingRoomView.swift in Sources */,
 				62307CC72C902A6800DCBADC /* View.swift in Sources */,
 				62307CC92C902AC700DCBADC /* Image.swift in Sources */,
+				62EB19E12CD2E76500D11FF5 /* CardSuit.swift in Sources */,
 				625605022CBF177D00C66D64 /* Question.swift in Sources */,
 				628775902C9B580D00E7D8C3 /* JoinRoomView.swift in Sources */,
-				62EB19D42CC327E900D11FF5 /* Selection.swift in Sources */,
+				62EB19D42CC327E900D11FF5 /* QuestionSelection.swift in Sources */,
+				62EB19E32CD2E77F00D11FF5 /* IconSelection.swift in Sources */,
 				6287759A2CABBB1C00E7D8C3 /* GuessingView.swift in Sources */,
 				628775962C9B949000E7D8C3 /* User.swift in Sources */,
 				628775922C9B82AA00E7D8C3 /* JoinRoomViewModel.swift in Sources */,
@@ -289,15 +342,18 @@
 				62307CA92C8C070500DCBADC /* ContentView.swift in Sources */,
 				62307CB62C8FD0D600DCBADC /* Card.swift in Sources */,
 				62307CC22C9028F500DCBADC /* MiniFrontView.swift in Sources */,
+				62EB19DA2CD2E69D00D11FF5 /* Sticker.swift in Sources */,
 				6287759E2CADFABD00E7D8C3 /* TakeView.swift in Sources */,
 				625604FD2CB9985500C66D64 /* GiveViewModel.swift in Sources */,
 				6287758C2C98FE4100E7D8C3 /* ScrollingPicker.swift in Sources */,
+				62EB19E52CD2E7A500D11FF5 /* ColorSelection.swift in Sources */,
 				62EB19CD2CBF42AA00D11FF5 /* GuessingViewModel.swift in Sources */,
 				62307CBD2C8FE29300DCBADC /* CardView.swift in Sources */,
 				6287758E2C9A863B00E7D8C3 /* HomeView.swift in Sources */,
 				62307CA72C8C070500DCBADC /* FlipPartyGameApp.swift in Sources */,
 				62307CC42C90293E00DCBADC /* BackView.swift in Sources */,
 				628775982C9BC2A500E7D8C3 /* Button.swift in Sources */,
+				62EB19EB2CDD6F3800D11FF5 /* GiveTakeSelectionViewModel.swift in Sources */,
 				62EB19D02CBF42D500D11FF5 /* GameManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

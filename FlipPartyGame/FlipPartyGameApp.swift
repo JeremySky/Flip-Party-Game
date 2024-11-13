@@ -12,10 +12,7 @@ struct FlipPartyGame: App {
     
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                Color.red.opacity(0.85).ignoresSafeArea()
-//                RoomIDTextField()
-            }
+//            GiveTakeSelectionView(gameManager: GameManager.preview(cardIndex: 16))
         }
     }
 }

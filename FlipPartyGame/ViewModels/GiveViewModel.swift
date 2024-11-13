@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@MainActor
 class GiveViewModel: ObservableObject {
     let players: [User]
     let pointsReference: Int

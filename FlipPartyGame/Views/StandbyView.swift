@@ -12,12 +12,12 @@ class StandbyViewModel: ObservableObject {
     @Published var gameManager: GameManager
     @Published var currentCard: Card
     @Published var result: Bool?
-    @Published var selected: Selection?
+    @Published var selected: QuestionSelection?
     
     let players: [User]
     
     
-    init(gameManager: GameManager, currentCard: Card, result: Bool? = nil, selected: Selection? = nil, players: [User]) {
+    init(gameManager: GameManager, currentCard: Card, result: Bool? = nil, selected: QuestionSelection? = nil, players: [User]) {
         self.gameManager = gameManager
         self.currentCard = currentCard
         self.result = result
@@ -34,7 +34,7 @@ class StandbyViewModel: ObservableObject {
     }
     
     func updateResultsOverview() {
-        if let result = gameManager.result, let selected = gameManager.selected {
+        if let result = gameManager.result, let selected = gameManager.questionSelection {
             self.result = result
             self.selected = selected
         }

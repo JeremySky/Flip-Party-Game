@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+@MainActor
 class GuessingViewModel: ObservableObject {
-    @Published var isFlipped = false
-    @Published var selection: Selection?
+    @Published var isFlipped: Bool
+    @Published var selectedAnswer: QuestionSelection?
     @Published var isCorrect: Bool?
     
     let hand: [Card]
@@ -17,9 +18,9 @@ class GuessingViewModel: ObservableObject {
     let currentCard: Card
     let currentPlayer: User
     
-    init(isFlipped: Bool = false, selection: Selection? = nil, isCorrect: Bool? = nil, hand: [Card], question: Question, currentCard: Card, currentPlayer: User) {
+    init(isFlipped: Bool = false, selectedAnswer: QuestionSelection? = nil, isCorrect: Bool? = nil, hand: [Card], question: Question, currentCard: Card, currentPlayer: User) {
         self.isFlipped = isFlipped
-        self.selection = selection
+        self.selectedAnswer = selectedAnswer
         self.isCorrect = isCorrect
         self.hand = hand
         self.question = question
@@ -28,14 +29,11 @@ class GuessingViewModel: ObservableObject {
     }
     
     init(gameManager: GameManager, user: User) {
-        guard let hand = gameManager.hands[user.id] else {
-            fatalError("Hand for user \(user.id) should not be nil")
-        }
-        guard let question = gameManager.question else {
-            fatalError("Question should not be nil")
-        }
+        guard let hand = gameManager.hands[user.id] else { fatalError("Hand for user \(user.id) should not be nil") }
+        guard let question = gameManager.phase.question else { fatalError("Question should not be nil") }
+            
         self.isFlipped = false
-        self.selection = nil
+        self.selectedAnswer = nil
         self.isCorrect = nil
         self.hand = hand
         self.question = question
@@ -55,7 +53,7 @@ class GuessingViewModel: ObservableObject {
     
     func getResult() -> Bool {
         
-        switch selection {
+        switch selectedAnswer {
             
         //QUESTION 1...
         case .black:

@@ -41,7 +41,7 @@ struct GuessingView: View {
             }) {
                 CardView(card: viewModel.currentCard, style: .standard, isFlipped: $viewModel.isFlipped)
             }
-            .disabled(viewModel.selection == nil || viewModel.isFlipped)
+            .disabled(viewModel.selectedAnswer == nil || viewModel.isFlipped)
             .buttonStyle(CustomAnimation())
             .frame(maxHeight: .infinity)
             
@@ -59,10 +59,10 @@ struct GuessingView: View {
                         selectionButton(for: selection)
                             .disabled(viewModel.isFlipped)
                             .offset(x: viewModel.isFlipped ? selection.offset : 0)
-                            .zIndex(viewModel.selection == selection ? 1 : 0)
-                            .opacity(viewModel.selection == selection ? 1 : selectionOpacity)
+                            .zIndex(viewModel.selectedAnswer == selection ? 1 : 0)
+                            .opacity(viewModel.selectedAnswer == selection ? 1 : selectionOpacity)
                             .offset(x: -resultOffset)
-                            .scaleEffect((viewModel.selection == selection) && !viewModel.isFlipped ? 1.1 : 1)
+                            .scaleEffect((viewModel.selectedAnswer == selection) && !viewModel.isFlipped ? 1.1 : 1)
                         
                     }
                 }
@@ -81,7 +81,7 @@ struct GuessingView: View {
             // MARK: -- RESULTS...
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
                 withAnimation(.spring) {
-                    resultOffset = ((Selection.frame + Selection.padding) / 2)
+                    resultOffset = ((QuestionSelection.frame + QuestionSelection.padding) / 2)
                 }
                 withAnimation {
                     resultOpacity = 1
@@ -104,7 +104,7 @@ struct GuessingView: View {
         if let result = viewModel.isCorrect {
             Text(result ? "👍" : "👎")
                 .font(.system(size: 45))
-                .frame(width: Selection.frame, height: Selection.frame)
+                .frame(width: QuestionSelection.frame, height: QuestionSelection.frame)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(style: StrokeStyle(lineWidth: 1))
@@ -148,16 +148,16 @@ struct GuessingView: View {
     }
     
     @ViewBuilder
-    private func selectionButton(for selection: Selection) -> some View {
+    private func selectionButton(for selection: QuestionSelection) -> some View {
         Button(action: {
-            viewModel.selection = viewModel.selection == selection ? nil : selection
+            viewModel.selectedAnswer = viewModel.selectedAnswer == selection ? nil : selection
         }, label: {
             
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundStyle(viewModel.question == .one ? selection.color : .white)
-                    .frame(width: Selection.frame, height: Selection.frame)
-                    .shadow(color: selection == viewModel.selection ? .yellow : .black.opacity(0.5), radius: 5)
+                    .frame(width: QuestionSelection.frame, height: QuestionSelection.frame)
+                    .shadow(color: selection == viewModel.selectedAnswer ? .yellow : .black.opacity(0.5), radius: 5)
                 
                 if let imageString = selection.imageString {
                     Image(systemName: imageString)
@@ -185,26 +185,20 @@ struct GuessingView: View {
 #Preview {
     struct GuessingViewPreview: View {
         
-        @State var gameManager: GameManager
-        @State var viewModel: GuessingViewModel
-        @State var isPresenting: Bool = true
-        
-        init(currentCardIndex: Int) {
-            let gameManager = GameManager.preview
-            let currentPlayer = gameManager.currentPlayer
-
-            self.gameManager = gameManager
-            self.viewModel = GuessingViewModel(gameManager: gameManager, user: currentPlayer)
-        }
+        let currentCardIndex: Int
         
         var body: some View {
-            GuessingView(viewModel: viewModel)
-//                .sheet(isPresented: $isPresenting, content: {
-//                    Text(gameManager.currentPlayer.name)
-//                    Text("\(viewModel.hand.map { $0.description })")
-//                })
+            let gameManager = GameManager.preview(cardIndex: currentCardIndex)
+            let currentPlayer = gameManager.currentPlayer
+
+            if gameManager.phase.question != nil{
+                let viewModel = GuessingViewModel(gameManager: gameManager, user: currentPlayer)
+                GuessingView(viewModel: viewModel)
+            } else {
+                Text("Should show next phase")
+            }
         }
     }
     
-    return GuessingViewPreview(currentCardIndex: 12)
+    return GuessingViewPreview(currentCardIndex: 10)
 }
