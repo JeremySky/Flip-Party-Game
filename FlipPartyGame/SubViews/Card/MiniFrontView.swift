@@ -16,6 +16,7 @@ struct MiniFrontView: View {
     
     var body: some View {
         ZStack {
+            Color.white
             Image(systemName: card.imageSystemName)
                 .resizable()
                 .scaledToFit()
