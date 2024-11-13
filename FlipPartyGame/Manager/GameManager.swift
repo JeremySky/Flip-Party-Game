@@ -13,27 +13,30 @@ class GameManager: ObservableObject {
     @Published var deck: [Card]
     @Published var currentCardIndex: Int
     @Published var hands: [UUID:[Card]]
-    @Published var question: Question?
+    @Published var phase: Phase
     
     //question phase data...
-    @Published var selected: Selection?
+    @Published var questionSelection: QuestionSelection?
     @Published var result: Bool?
     
-    init(players: [User], currentPlayer: User, deck: [Card], currentCardIndex: Int, hands: [UUID : [Card]], question: Question?, selected: Selection? = nil, result: Bool? = nil) {
+    //give-take phase data...
+    @Published var giveTakeSelection: (choice1: Sticker?, choice2: Sticker?)
+    
+    init(players: [User], currentPlayer: User, deck: [Card], currentCardIndex: Int, hands: [UUID : [Card]], selected: QuestionSelection? = nil, result: Bool? = nil, phase: Phase) {
         self.players = players
         self.currentPlayer = currentPlayer
         self.deck = deck
         self.currentCardIndex = currentCardIndex
         self.hands = hands
-        self.question = question
-        self.selected = selected
+        self.questionSelection = selected
         self.result = result
+        self.phase = phase
     }
     
     func getCurrentCard() -> Card { deck[currentCardIndex] }
     
-    func updateStandbyView(selected: Selection, result: Bool) {
-        self.selected = selected
+    func updateStandbyView(selected: QuestionSelection, result: Bool) {
+        self.questionSelection = selected
         self.result = result
     }
 }
@@ -41,15 +44,75 @@ class GameManager: ObservableObject {
 
 extension GameManager {
     
-    static var preview: GameManager {
+    static func preview(cardIndex: Int) -> GameManager {
         
-        
-        let currentCardIndex = 12
-        
-        
+        let currentCardIndex = cardIndex
         let players = User.testArr
         let deck = Card.shuffledDeck
+        var currentPlayer: User {
+            let playerCount = players.count
+            let firstPhaseTurns = 4 * playerCount
+            
+            if currentCardIndex < firstPhaseTurns {
+                // Phase 1: Each player gets 1 card per turn
+                return players[currentCardIndex % playerCount]
+            } else {
+                // Phase 2: Each player gets 2 cards per turn
+                // Calculate the adjusted index by subtracting the first phase turns
+                let phaseTwoTurn = currentCardIndex - firstPhaseTurns
+                return players[(phaseTwoTurn / 2) % playerCount]
+            }
+        }
         
+        
+        var phase: Phase {
+            if currentCardIndex < 4 * players.count {
+                let questionIndex = currentCardIndex % 4
+                let question: Question = Question.allCases.first(where: { $0.index == questionIndex })!
+                return .question(question)
+            } else if currentCardIndex < 52 {
+                let remainingStickers: [Sticker] = (currentCardIndex % 2) == 0 ? Sticker.allCases : [Sticker.allCases.randomElement()!]
+                return .giveTake(remainingStickers)
+            } else {
+                return .results
+            }
+        }
+        
+        var hands: [UUID:[Card]] {
+            var data: [UUID:[Card]] = Dictionary(uniqueKeysWithValues: players.map { ($0.id, []) })
+            var cardIndex = 0
+            var playerIndex = 0
+            
+            while cardIndex <= currentCardIndex {
+                
+                let id = players[playerIndex].id
+                
+                if let hand = data[id], hand.count < 4 {
+                    data[id]!.append(deck[cardIndex])
+                }
+                
+                playerIndex = (playerIndex + 1) % players.count
+                cardIndex += 1
+            }
+            
+            return data
+        }
+        
+        return GameManager(players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, phase: phase)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    static var preview: GameManager {
+        
+        let currentCardIndex = 0
+        let players = User.testArr
+        let deck = Card.shuffledDeck
         let currentPlayer = players[currentCardIndex % players.count]
         
         var question: Question? {
@@ -81,7 +144,7 @@ extension GameManager {
             return data
         }
         
-        let gameManager = GameManager(players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, question: question!)
+        let gameManager = GameManager(players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, phase: .question(.one))
         
         return gameManager
     }

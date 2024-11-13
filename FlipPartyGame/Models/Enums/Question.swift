@@ -23,7 +23,7 @@ enum Question: CaseIterable {
         }
     }
     
-    var selections: [Selection] {
+    var selections: [QuestionSelection] {
         switch self {
         case .one:
             [.red, .black]
