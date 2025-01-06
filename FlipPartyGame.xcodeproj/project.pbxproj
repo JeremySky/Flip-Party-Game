@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		62307CA72C8C070500DCBADC /* FlipPartyGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CA62C8C070500DCBADC /* FlipPartyGameApp.swift */; };
-		62307CA92C8C070500DCBADC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CA82C8C070500DCBADC /* ContentView.swift */; };
+		62307CA92C8C070500DCBADC /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CA82C8C070500DCBADC /* GameView.swift */; };
 		62307CAB2C8C070600DCBADC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62307CAA2C8C070600DCBADC /* Assets.xcassets */; };
 		62307CAE2C8C070600DCBADC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */; };
 		62307CB62C8FD0D600DCBADC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62307CB52C8FD0D600DCBADC /* Card.swift */; };
@@ -50,7 +50,7 @@
 /* Begin PBXFileReference section */
 		62307CA32C8C070500DCBADC /* FlipPartyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlipPartyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62307CA62C8C070500DCBADC /* FlipPartyGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipPartyGameApp.swift; sourceTree = "<group>"; };
-		62307CA82C8C070500DCBADC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		62307CA82C8C070500DCBADC /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		62307CAA2C8C070600DCBADC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62307CAD2C8C070600DCBADC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		62307CB52C8FD0D600DCBADC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 		62307CB72C8FD51C00DCBADC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				62307CA82C8C070500DCBADC /* ContentView.swift */,
+				62307CA82C8C070500DCBADC /* GameView.swift */,
 				6287758D2C9A863B00E7D8C3 /* HomeView.swift */,
 				6287758F2C9B580D00E7D8C3 /* JoinRoomView.swift */,
 				628775932C9B8F1B00E7D8C3 /* WaitingRoomView.swift */,
@@ -339,7 +339,7 @@
 				629FDA172CB0918800D74D15 /* GiveView.swift in Sources */,
 				62307CC02C90283C00DCBADC /* FrontView.swift in Sources */,
 				628775862C90B63300E7D8C3 /* RoomIDTextField.swift in Sources */,
-				62307CA92C8C070500DCBADC /* ContentView.swift in Sources */,
+				62307CA92C8C070500DCBADC /* GameView.swift in Sources */,
 				62307CB62C8FD0D600DCBADC /* Card.swift in Sources */,
 				62307CC22C9028F500DCBADC /* MiniFrontView.swift in Sources */,
 				62EB19DA2CD2E69D00D11FF5 /* Sticker.swift in Sources */,

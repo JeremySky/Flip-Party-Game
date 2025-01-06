@@ -70,11 +70,9 @@ extension GameManager {
                 let questionIndex = currentCardIndex % 4
                 let question: Question = Question.allCases.first(where: { $0.index == questionIndex })!
                 return .question(question)
-            } else if currentCardIndex < 52 {
+            } else {
                 let remainingStickers: [Sticker] = (currentCardIndex % 2) == 0 ? Sticker.allCases : [Sticker.allCases.randomElement()!]
                 return .giveTake(remainingStickers)
-            } else {
-                return .results
             }
         }
         

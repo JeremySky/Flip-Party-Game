@@ -9,7 +9,7 @@ import Foundation
 
 
 enum Phase {
-    case question(_ question: Question), giveTake(_ remainingSticker: [Sticker]), results
+    case question(_ question: Question), giveTake(_ remainingSticker: [Sticker])
     
     var question: Question? {
         switch self {
