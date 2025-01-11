@@ -12,7 +12,7 @@ struct StandbyView: View {
     @EnvironmentObject var gameManager: GameManager
     
     // Animation Properties...
-    @State var selectedPlayer: User
+    @State var selectedPlayer: User = User()
     @State var currentCardOpacity: (revealed: Double, hidden: Double) = (0, 1)
     @State var resultsOverviewOffset: (selected: CGFloat, result: CGFloat) = (90 , -90)
 
@@ -66,6 +66,9 @@ struct StandbyView: View {
             withAnimation(.bouncy(duration: 0.8).delay(2)) {
                 resultsOverviewOffset.result = 0
             }
+        }
+        .onAppear {
+            selectedPlayer = gameManager.currentPlayer
         }
     }
     
@@ -233,7 +236,7 @@ struct StandbyView: View {
         
         var body: some View {
             ZStack(alignment: .bottomTrailing) {
-                StandbyView(selectedPlayer: gameManager.currentPlayer)
+                StandbyView()
                 Button("TEST") {
                     gameManager.questionSelection = .red
                     gameManager.result = true

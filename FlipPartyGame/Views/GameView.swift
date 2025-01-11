@@ -12,20 +12,20 @@ enum GameState {
 }
 
 struct GameView: View {
-    @StateObject var gameManager: GameManager = GameManager.preview(cardIndex: 51)
-    @State var gameState: GameState = .playerTurn
+    @StateObject var gameManager: GameManager = GameManager.preview(cardIndex: 2)
+    @State var gameState: GameState = .standby
     
     var body: some View {
         ZStack {
             switch gameState {
             case .standby:
-                StandbyView(viewModel: StandbyViewModel(gameManager: gameManager), selectedPlayer: gameManager.currentPlayer)
+                StandbyView()
             case .playerTurn:
                 switch gameManager.phase {
                 case .question:
                     GuessingView(viewModel: GuessingViewModel(gameManager: gameManager, user: gameManager.currentPlayer))
                 case .giveTake(let remainingStickers):
-                    GiveTakeSelectionView(viewModel: GiveTakeSelectionViewModel(gameManager: gameManager, remainingStickers: remainingStickers, user: gameManager.currentPlayer), user: gameManager.currentPlayer, stickerViewPropertiesArr: remainingStickers.map({ ($0, remainingStickers.count == 2 ? $0.offset : .zero , 1, 1) }))
+                    GiveTakeSelectionView(viewModel: GiveTakeSelectionViewModel(gameManager: gameManager, remainingStickers: remainingStickers, user: gameManager.currentPlayer), user: gameManager.currentPlayer)
                 }
             case .give:
                 GiveView()
@@ -33,6 +33,7 @@ struct GameView: View {
                 TakeView()
             }
         }
+        .environmentObject(gameManager)
     }
 }
 
