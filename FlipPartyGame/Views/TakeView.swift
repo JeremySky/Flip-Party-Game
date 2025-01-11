@@ -21,7 +21,7 @@ struct TakeView: View {
         VStack {
             
             //MARK: -- HEADER...
-            Header(player: user, type: .take)
+            Header(type: .take)
             Spacer()
             
             

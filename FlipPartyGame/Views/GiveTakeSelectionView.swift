@@ -28,7 +28,7 @@ struct GiveTakeSelectionView: View {
     var body: some View {
         VStack {
             
-            Header(player: user, type: .currentPlayer)
+            Header(type: .giveTake)
             
             VStack(spacing: 40) {
                 

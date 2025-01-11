@@ -7,45 +7,9 @@
 
 import SwiftUI
 
-class StandbyViewModel: ObservableObject {
-    
-    @Published var gameManager: GameManager
-    @Published var currentCard: Card
-    @Published var result: Bool?
-    @Published var selected: QuestionSelection?
-    
-    let players: [User]
-    
-    
-    init(gameManager: GameManager, currentCard: Card, result: Bool? = nil, selected: QuestionSelection? = nil, players: [User]) {
-        self.gameManager = gameManager
-        self.currentCard = currentCard
-        self.result = result
-        self.selected = selected
-        self.players = players
-    }
-    
-    init(gameManager: GameManager) {
-        self.gameManager = gameManager
-        self.currentCard = gameManager.getCurrentCard()
-        self.result = nil
-        self.selected = nil
-        self.players = gameManager.players
-    }
-    
-    func updateResultsOverview() {
-        if let result = gameManager.result, let selected = gameManager.questionSelection {
-            self.result = result
-            self.selected = selected
-        }
-    }
-}
-
-
 struct StandbyView: View {
     
-    @StateObject var viewModel: StandbyViewModel
-    var player: User = .test1
+    @EnvironmentObject var gameManager: GameManager
     
     // Animation Properties...
     @State var selectedPlayer: User
@@ -57,33 +21,42 @@ struct StandbyView: View {
         VStack {
             
             //MARK: -- HEADER...
-            Header(player: viewModel.gameManager.currentPlayer, type: .currentPlayer)
+            Header(type: .currentPlayer(gameManager.currentPlayer))
 
             
             //MARK: -- PLAYERS OVERVIEW...
-            playersOverview()
+            VStack {
+                ForEach(Array(gameManager.players.enumerated()), id: \.offset) { playerNum, player in
+                    
+                    Button(action: { selectedPlayer = player }) {
+                        overview(of: player, playerNum)
+                            .scaleEffect(player.id == selectedPlayer.id ? 1 : 0.9)
+                    }
+                    .buttonStyle(CustomAnimation())
+                    .padding(.vertical, selectedPlayer == player ? 2 : 8)
+                }
+            }
             .frame(maxHeight: .infinity)
             
             
             //MARK: -- RESULTS OVERVIEW...
-            HStack(spacing: 20) {
+            HStack {
                 selected()
                     .offset(x: resultsOverviewOffset.selected)
+                    .frame(width: 70, height: 70)
                     .zIndex(1)
                 currentCard()
-                    .zIndex(2)
+                    .zIndex(1.1)
                 result()
                     .offset(x: resultsOverviewOffset.result)
+                    .frame(width: 70, height: 70)
                     .zIndex(1)
             }
         }
-        .onChange(of: viewModel.gameManager.result) { oldValue, newValue in
-            
-            //fetch data from game manager to view model...
-            viewModel.updateResultsOverview()
+        .onChange(of: gameManager.result) { _, _ in
             
             withAnimation(.bouncy(duration: 0.5)) {
-                selectedPlayer = viewModel.gameManager.currentPlayer
+                selectedPlayer = gameManager.currentPlayer
                 resultsOverviewOffset.selected = 0
             }
             withAnimation(.bouncy(duration: 0.5).delay(1)) {
@@ -96,19 +69,6 @@ struct StandbyView: View {
         }
     }
     
-    @ViewBuilder
-    private func playersOverview() -> some View {
-        VStack(spacing: 15) {
-            ForEach(Array(viewModel.players.enumerated()), id: \.offset) { playerNum, player in
-                
-                Button(action: { selectedPlayer = player }) {
-                    overview(of: player, playerNum)
-                        .scaleEffect(player.id == selectedPlayer.id ? 1 : 0.9)
-                }
-                .buttonStyle(CustomAnimation())
-            }
-        }
-    }
     
     @ViewBuilder
     private func overview(of player: User, _ playerNum: Int) -> some View {
@@ -125,9 +85,9 @@ struct StandbyView: View {
             
             ForEach(0..<4) { cardPosition in
                 let deckIndex: Int = playerNum + (cardPosition * 4)
-                let card: Card = viewModel.gameManager.deck[deckIndex]
+                let card: Card = gameManager.deck[deckIndex]
                 
-                if deckIndex == viewModel.gameManager.currentCardIndex {
+                if deckIndex == gameManager.currentCardIndex {
                     
                     //MARK: CURRENT CARD...
                     ZStack {
@@ -147,7 +107,7 @@ struct StandbyView: View {
                     .scaleEffect(1.1)
                     
                     
-                } else if deckIndex < viewModel.gameManager.currentCardIndex {
+                } else if deckIndex < gameManager.currentCardIndex {
                     //MARK: FLIPPED CARDS...
                     MiniFrontView(card).opacity(player.id == selectedPlayer.id ? 1 : 0.7)
                     
@@ -170,7 +130,7 @@ struct StandbyView: View {
     @ViewBuilder
     private func selected() -> some View {
         
-        if let selected = viewModel.selected {
+        if let selected = gameManager.questionSelection {
             
             ZStack {
                 //image... (questions 2 - 4)
@@ -205,25 +165,30 @@ struct StandbyView: View {
     
     @ViewBuilder
     private func currentCard() -> some View {
+        let currentCard = gameManager.getCurrentCard()
         ZStack {
             
             //revealed...
             ZStack {
-                Image(systemName: viewModel.currentCard.imageSystemName)
+                Image(systemName: currentCard.imageSystemName)
                     .resizable()
                     .scaledToFit()
-                    .foregroundStyle(viewModel.currentCard.color)
-                Text(viewModel.currentCard.text)
+                    .foregroundStyle(currentCard.color)
+                Text(currentCard.text)
                     .font(.system(size: 30, weight: .black, design: .rounded))
                     .foregroundStyle(.white)
             }
             .padding(12)
             .frame(width: 100, height: 100)
             .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(.white)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundStyle(.white)
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(style: StrokeStyle(lineWidth: 1))
+                        .foregroundStyle(.gray)
+                }
             )
-            .cardStyle(customWidth: 100, customHeight: 100, border: true)
             .opacity(currentCardOpacity.revealed)
             
             
@@ -238,13 +203,12 @@ struct StandbyView: View {
                 .cardStyle(customWidth: 100, customHeight: 100, border: false)
                 .opacity(currentCardOpacity.hidden)
         }
-        .shadow(color: .gray.opacity(0.5),radius: 5)
     }
     
     @ViewBuilder
     private func result() -> some View {
         
-        if let result = viewModel.result {
+        if let result = gameManager.result {
             Text(result ? "👍" : "👎")
                 .font(.system(size: 45))
                 .frame(width: 70, height: 70)
@@ -262,19 +226,23 @@ struct StandbyView: View {
     struct StandbyViewPreview: View {
         
         @State var gameManager: GameManager
-        @State var viewModel: StandbyViewModel
         
-        init() {
-            let gameManager = GameManager.preview
-
-            self.gameManager = gameManager
-            self.viewModel = StandbyViewModel(gameManager: gameManager)
+        init(cardIndex: Int) {
+            self.gameManager = .preview(cardIndex: cardIndex)
         }
         
         var body: some View {
-            StandbyView(viewModel: viewModel, selectedPlayer: gameManager.currentPlayer)
+            ZStack(alignment: .bottomTrailing) {
+                StandbyView(selectedPlayer: gameManager.currentPlayer)
+                Button("TEST") {
+                    gameManager.questionSelection = .red
+                    gameManager.result = true
+                }
+                .padding()
+            }
+                .environmentObject(gameManager)
         }
     }
     
-    return StandbyViewPreview()
+    return StandbyViewPreview(cardIndex: 1)
 }

@@ -21,7 +21,7 @@ struct GiveView: View {
                 
                 //MARK: -- HEADER & ALERTS...
                 ZStack {
-                    Header(player: user, type: .give(viewModel.pointsRemaining))
+                    Header(type: .give(viewModel.pointsRemaining))
                     
                     //ALERT
                     Text(viewModel.error?.localizedDescription ?? "")

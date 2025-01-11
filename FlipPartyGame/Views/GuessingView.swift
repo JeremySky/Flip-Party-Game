@@ -25,7 +25,7 @@ struct GuessingView: View {
         VStack {
             
             //MARK: -- HEADER
-            Header(player: viewModel.currentPlayer, type: .currentPlayer)
+            Header(type: .guessing)
             
             
             //MARK: -- HAND OVERVIEW...

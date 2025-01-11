@@ -21,6 +21,13 @@ struct User: Identifiable, Hashable {
         self.icon = icon
         self.color = color
     }
+    
+    init() {
+        self.id = UUID()
+        self.name = "YOUR NAME"
+        self.icon = .beerBlue
+        self.color = .red
+    }
 }
 
 extension User {
@@ -42,5 +49,13 @@ extension User {
 }
 
 struct UserEnvironmentKey: EnvironmentKey {
-    static let defaultValue: User? = nil
+    static let defaultValue = User()
+}
+
+
+extension EnvironmentValues {
+    var user: User {
+        get { self[UserEnvironmentKey.self] }
+        set { self[UserEnvironmentKey.self] = newValue }
+    }
 }

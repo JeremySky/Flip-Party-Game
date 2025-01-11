@@ -12,7 +12,7 @@ struct WaitingRoomView: View {
     @State var users: [User] = User.testArr
     @State var host: User = .test1
     let roomID: String = "B34R"
-    let isHost = false
+    var isHost = true
     
     let waitingText: String = "Waiting..."
     @State private var waveOffset: [CGFloat] = Array(repeating: 0, count: "Waiting...".count)
@@ -24,7 +24,7 @@ struct WaitingRoomView: View {
         VStack {
             
             //MARK: -- HEADER...
-            Header(player: host, type: .host(roomID))
+            Header(type: .waitingRoom(roomID, host))
             
             
             //MARK: -- PLAYERS...
@@ -100,4 +100,5 @@ struct WaitingRoomView: View {
 
 #Preview {
     WaitingRoomView()
+        .environmentObject(GameManager.preview)
 }

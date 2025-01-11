@@ -8,11 +8,11 @@
 import SwiftUI
 
 enum HeaderType {
-    case host(_ roomID: String), currentPlayer, take, give(_ points: Int)
+    case waitingRoom(_ roomID: String, _ host: User), currentPlayer(_ player: User), take, give(_ points: Int), guessing, giveTake
     
     var rawValue: String {
         switch self {
-        case .host:
+        case .waitingRoom:
             "Host"
         case .currentPlayer:
             "Current Turn"
@@ -20,12 +20,16 @@ enum HeaderType {
             "Take"
         case .give:
             "Give"
+        case .guessing:
+            "Guessing"
+        case .giveTake:
+            "Give / Take"
         }
     }
     
     var height: CGFloat {
         switch self {
-        case .host:
+        case .waitingRoom:
             190
         case .give:
             200
@@ -33,12 +37,26 @@ enum HeaderType {
             170
         }
     }
+    
+    var player: User? {
+        switch self {
+        case .waitingRoom(_, let host):
+            return host
+        case .currentPlayer(let player):
+            return player
+        default:
+            return nil
+        }
+    }
 }
 
 struct Header: View {
     
-    let player: User
+    @Environment(\.user) var user
     let type: HeaderType
+    
+    var player: User { type.player ?? user }
+    
     
     var body: some View {
         ZStack {
@@ -49,7 +67,7 @@ struct Header: View {
             VStack {
                 
                 switch type {
-                case .host(let roomID):
+                case .waitingRoom(let roomID, _):
                     HStack {
                         ForEach(Array(roomID.enumerated()), id: \.element) { _, char in
                             Text("\(char)")
@@ -110,8 +128,9 @@ struct Header: View {
 
 #Preview {
     return VStack {
-        Header(player: User.test1, type: .host("AQ9D"))
+        Header(type: .waitingRoom("AQ9D", User.test2))
 //        Header(player: User.test2, type: .currentPlayer)
         Spacer()
     }
+    .environmentObject(GameManager.preview)
 }
