@@ -21,6 +21,9 @@ struct User: Identifiable, Hashable {
         self.icon = icon
         self.color = color
     }
+}
+
+extension User {
     
     static var test1 = User(name: "Jeremy", icon: .cocktailGreen, color: .green)
     static var test2 = User(name: "Sam", icon: .barrel, color: .blue)
@@ -35,4 +38,9 @@ struct User: Identifiable, Hashable {
     ]
     
     static var testArr: [User] = [.test1, .test2, .test3, .test4]
+    
+}
+
+struct UserEnvironmentKey: EnvironmentKey {
+    static let defaultValue: User? = nil
 }
