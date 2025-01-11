@@ -21,7 +21,7 @@ struct GiveTakeSelectionView: View {
     @State var isFlipped: Bool = false
     
     //Sticker Animations...
-    @State var stickerViewPropertiesArr: [StickerViewProperties]
+    @State var stickerViewPropertiesArr: [StickerViewProperties] = []
     @State var disableGestures: Bool = false
     
     
@@ -58,6 +58,12 @@ struct GiveTakeSelectionView: View {
                 }
             }
             .frame(maxHeight: .infinity)
+        }
+        .onAppear {
+            let remainingStickers = viewModel.remainingStickers
+            stickerViewPropertiesArr = remainingStickers.map({ sticker in
+                StickerViewProperties(sticker, remainingStickers.count == 2 ? sticker.offset : .zero, 1, 1)
+            })
         }
     }
     
@@ -230,12 +236,10 @@ extension GiveTakeSelectionView {
             if let remainingStickers = gameManager.phase.remainingStickers {
                 let currentPlayer = gameManager.currentPlayer
                 let viewModel = GiveTakeSelectionViewModel(gameManager: gameManager, remainingStickers: remainingStickers, user: currentPlayer)
-                let stickerViewPropertiesArr: [GiveTakeSelectionView.StickerViewProperties] = remainingStickers.map({ ($0, remainingStickers.count == 2 ? $0.offset : .zero , 1, 1) })
                 
                 GiveTakeSelectionView(
                     viewModel: viewModel,
-                    user: gameManager.currentPlayer,
-                    stickerViewPropertiesArr: stickerViewPropertiesArr
+                    user: gameManager.currentPlayer
                 )
                 
             } else {
@@ -244,5 +248,5 @@ extension GiveTakeSelectionView {
         }
     }
     
-    return GiveTakeSelectionViewPreview(currentCardIndex: 51)
+    return GiveTakeSelectionViewPreview(currentCardIndex: 50)
 }
