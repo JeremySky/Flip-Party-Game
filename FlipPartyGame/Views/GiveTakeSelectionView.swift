@@ -13,9 +13,6 @@ struct GiveTakeSelectionView: View {
     
     @StateObject var viewModel: GiveTakeSelectionViewModel
     
-    // Device/App Property...
-    let user: User
-    
     //Card animations....
     @State var isEnlarged: Bool = false
     @State var isFlipped: Bool = false
@@ -233,14 +230,10 @@ extension GiveTakeSelectionView {
         var body: some View {
             let gameManager = GameManager.preview(cardIndex: currentCardIndex)
             
-            if let remainingStickers = gameManager.phase.remainingStickers {
-                let currentPlayer = gameManager.currentPlayer
-                let viewModel = GiveTakeSelectionViewModel(gameManager: gameManager, remainingStickers: remainingStickers, user: currentPlayer)
+            if gameManager.phase.remainingStickers != nil {
+                let viewModel = GiveTakeSelectionViewModel(gameManager: gameManager)
                 
-                GiveTakeSelectionView(
-                    viewModel: viewModel,
-                    user: gameManager.currentPlayer
-                )
+                GiveTakeSelectionView(viewModel: viewModel)
                 
             } else {
                 Text("Should show other phase")

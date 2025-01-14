@@ -25,8 +25,10 @@ class GiveTakeSelectionViewModel: ObservableObject {
         self.hand = hand
     }
     
-    init(gameManager: GameManager, remainingStickers: [Sticker], user: User) {
+    init(gameManager: GameManager) {
+        let user = gameManager.currentPlayer
         guard let hand = gameManager.hands[user.id] else { fatalError("Hand for user \(user.id) should not be nil") }
+        guard let remainingStickers = gameManager.phase.remainingStickers else { fatalError("Remaining stickers should not be nil") }
         
         self.selectedSticker = nil
         self.remainingStickers = remainingStickers

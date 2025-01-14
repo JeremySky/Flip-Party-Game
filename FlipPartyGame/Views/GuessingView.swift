@@ -9,9 +9,6 @@ import SwiftUI
 
 struct GuessingView: View {
     
-    // Device/App Property...
-    let user: User = User.test1
-    
     @StateObject var viewModel: GuessingViewModel
     
     // Animation Properties...
@@ -189,10 +186,9 @@ struct GuessingView: View {
         
         var body: some View {
             let gameManager = GameManager.preview(cardIndex: currentCardIndex)
-            let currentPlayer = gameManager.currentPlayer
-
+            
             if gameManager.phase.question != nil{
-                let viewModel = GuessingViewModel(gameManager: gameManager, user: currentPlayer)
+                let viewModel = GuessingViewModel(gameManager: gameManager)
                 GuessingView(viewModel: viewModel)
             } else {
                 Text("Should show next phase")
