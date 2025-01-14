@@ -10,14 +10,14 @@ import SwiftUI
 @MainActor
 class GuessingViewModel: ObservableObject {
     @Published var isFlipped: Bool
-    @Published var selectedAnswer: QuestionSelection?
+    @Published var selectedAnswer: ChoiceSelection?
     @Published var isCorrect: Bool?
     
     let hand: [Card]
     let question: Question
     let currentCard: Card
     
-    init(isFlipped: Bool = false, selectedAnswer: QuestionSelection? = nil, isCorrect: Bool? = nil, hand: [Card], question: Question, currentCard: Card, currentPlayer: User) {
+    init(isFlipped: Bool = false, selectedAnswer: ChoiceSelection? = nil, isCorrect: Bool? = nil, hand: [Card], question: Question, currentCard: Card, currentPlayer: User) {
         self.isFlipped = isFlipped
         self.selectedAnswer = selectedAnswer
         self.isCorrect = isCorrect

@@ -98,7 +98,7 @@ struct GiveTakeSelectionView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundStyle(.white)
-                .frame(width: QuestionSelection.frame, height: QuestionSelection.frame)
+                .frame(width: ChoiceSelection.frame, height: ChoiceSelection.frame)
                 .shadow(color: .black.opacity(0.5), radius: 5)
             
             Text(sticker.rawValue)

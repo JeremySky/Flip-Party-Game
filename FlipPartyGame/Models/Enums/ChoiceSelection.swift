@@ -7,34 +7,34 @@
 
 import SwiftUI
 
-enum QuestionSelection: String {
+enum ChoiceSelection: String {
     case black, red, higher, lower, equal, inside, outside, heart, spade, diamond, club
     
     
     static let padding: CGFloat = 18
     static let frame: CGFloat = 70
     
-    static let sticker1Offset: CGSize = CGSize(width: QuestionSelection.red.offset, height: 240)
-    static let sticker2Offset: CGSize = CGSize(width: QuestionSelection.black.offset, height: 240)
+    static let sticker1Offset: CGSize = CGSize(width: ChoiceSelection.red.offset, height: 240)
+    static let sticker2Offset: CGSize = CGSize(width: ChoiceSelection.black.offset, height: 240)
     
     var offset: CGFloat {
         var cgFloat: CGFloat = 0
         
         switch self {
         case .black, .spade:
-            cgFloat = CGFloat((QuestionSelection.frame + QuestionSelection.padding) / 2)
+            cgFloat = CGFloat((ChoiceSelection.frame + ChoiceSelection.padding) / 2)
         case .red, .diamond:
-            cgFloat = CGFloat(-(QuestionSelection.frame + QuestionSelection.padding) / 2)
+            cgFloat = CGFloat(-(ChoiceSelection.frame + ChoiceSelection.padding) / 2)
         case .higher, .inside:
-            cgFloat = CGFloat(QuestionSelection.frame + QuestionSelection.padding)
+            cgFloat = CGFloat(ChoiceSelection.frame + ChoiceSelection.padding)
         case .lower, .outside:
             cgFloat = CGFloat(0)
         case .equal:
-            cgFloat = CGFloat(-(QuestionSelection.frame + QuestionSelection.padding))
+            cgFloat = CGFloat(-(ChoiceSelection.frame + ChoiceSelection.padding))
         case.heart:
-            cgFloat = CGFloat(((QuestionSelection.frame + QuestionSelection.padding) / 2) + QuestionSelection.frame + QuestionSelection.padding)
+            cgFloat = CGFloat(((ChoiceSelection.frame + ChoiceSelection.padding) / 2) + ChoiceSelection.frame + ChoiceSelection.padding)
         case .club:
-            cgFloat = CGFloat(-((((QuestionSelection.frame + QuestionSelection.padding) / 2) + QuestionSelection.frame + QuestionSelection.padding)))
+            cgFloat = CGFloat(-((((ChoiceSelection.frame + ChoiceSelection.padding) / 2) + ChoiceSelection.frame + ChoiceSelection.padding)))
         }
         
         return cgFloat

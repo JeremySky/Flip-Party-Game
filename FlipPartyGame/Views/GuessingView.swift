@@ -51,7 +51,7 @@ struct GuessingView: View {
                 
                 //MARK: -- SELECTIONS...
                 HStack(spacing: 18) {
-                    ForEach(Array(viewModel.question.selections.enumerated()), id: \.offset) { i, selection in
+                    ForEach(Array(viewModel.question.choices.enumerated()), id: \.offset) { i, selection in
                         
                         selectionButton(for: selection)
                             .disabled(viewModel.isFlipped)
@@ -78,7 +78,7 @@ struct GuessingView: View {
             // MARK: -- RESULTS...
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
                 withAnimation(.spring) {
-                    resultOffset = ((QuestionSelection.frame + QuestionSelection.padding) / 2)
+                    resultOffset = ((ChoiceSelection.frame + ChoiceSelection.padding) / 2)
                 }
                 withAnimation {
                     resultOpacity = 1
@@ -101,7 +101,7 @@ struct GuessingView: View {
         if let result = viewModel.isCorrect {
             Text(result ? "👍" : "👎")
                 .font(.system(size: 45))
-                .frame(width: QuestionSelection.frame, height: QuestionSelection.frame)
+                .frame(width: ChoiceSelection.frame, height: ChoiceSelection.frame)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(style: StrokeStyle(lineWidth: 1))
@@ -145,7 +145,7 @@ struct GuessingView: View {
     }
     
     @ViewBuilder
-    private func selectionButton(for selection: QuestionSelection) -> some View {
+    private func selectionButton(for selection: ChoiceSelection) -> some View {
         Button(action: {
             viewModel.selectedAnswer = viewModel.selectedAnswer == selection ? nil : selection
         }, label: {
@@ -153,7 +153,7 @@ struct GuessingView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundStyle(viewModel.question == .one ? selection.color : .white)
-                    .frame(width: QuestionSelection.frame, height: QuestionSelection.frame)
+                    .frame(width: ChoiceSelection.frame, height: ChoiceSelection.frame)
                     .shadow(color: selection == viewModel.selectedAnswer ? .yellow : .black.opacity(0.5), radius: 5)
                 
                 if let imageString = selection.imageString {
