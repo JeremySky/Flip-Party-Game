@@ -11,6 +11,7 @@ struct StandbyView: View {
     
     @EnvironmentObject var gameManager: GameManager
     
+    
     // Animation Properties...
     @State var selectedPlayer: User = User()
     @State var currentCardOpacity: (revealed: Double, hidden: Double) = (0, 1)
@@ -21,12 +22,16 @@ struct StandbyView: View {
         VStack {
             
             //MARK: -- HEADER...
-            Header(type: .currentPlayer(gameManager.currentPlayer))
+            if !gameManager.turnTaken {
+                Header(type: .currentPlayer(gameManager.currentPlayer))
+            } else {
+                Header(type: .waitingOn(User.testArr))
+            }
 
             
             //MARK: -- PLAYERS OVERVIEW...
             VStack {
-                ForEach(Array(gameManager.players.enumerated()), id: \.offset) { playerNum, player in
+                ForEach(Array(gameManager.playersQueue.enumerated()), id: \.offset) { playerNum, player in
                     
                     Button(action: { selectedPlayer = player }) {
                         overview(of: player, playerNum)
