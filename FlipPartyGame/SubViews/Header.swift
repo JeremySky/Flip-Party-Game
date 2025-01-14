@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum HeaderType {
-    case waitingRoom(_ roomID: String?, _ host: User), currentPlayer(_ player: User), waitingOn(_ players: [User]), take, give(_ points: Int), guessing, giveTake
+    case waitingRoom(_ roomID: String?, _ host: User), currentPlayer(_ player: Player), waitingOn(_ players: [Player]), take, give(_ points: Int), guessing, giveTake
     
     var rawValue: String {
         switch self {
@@ -40,12 +40,17 @@ enum HeaderType {
         }
     }
     
-    var playerInfo: User? {
+    var playerInfo: Player? {
         switch self {
         case .waitingRoom(_, let host):
-            return host
+            return Player(user: host)
         case .currentPlayer(let player):
             return player
+        case .waitingOn(let players):
+            if players.count == 1 {
+                return players[0]
+            }
+            return nil
         default:
             return nil
         }
@@ -57,12 +62,12 @@ struct Header: View {
     @Environment(\.user) var user
     let type: HeaderType
     
-    var player: User { type.playerInfo ?? user }
+    var player: Player { type.playerInfo ??  Player(user: user) }
     
     
     var body: some View {
         ZStack {
-            player.color.value.ignoresSafeArea()
+            player.color.ignoresSafeArea()
             LinearGradient(colors: [.black.opacity(0.4), .white.opacity(0.2)], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             .ignoresSafeArea()
@@ -98,43 +103,70 @@ struct Header: View {
                         .circleBackground(diameter: 164, .white, true)
                     }
                     .padding(.bottom)
-                case .waitingOn(let playersInfo):
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(playersInfo, id: \.self.id) { playerInfo in
-                                
-                                HStack {
-                                    Image(playerInfo.icon.string)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 80)
-                                        .padding(6)
-                                        .background( Circle().opacity(0.3))
-                                    VStack(alignment: .leading, spacing: 0) {
-                                        Text(type.rawValue)
-                                            .font(.caption.weight(.bold))
-                                            .fontDesign(.rounded)
-                                            .padding(.leading, 5)
-                                        Text(playerInfo.name)
-                                            .font(.largeTitle.weight(.bold))
-                                            .fontDesign(.rounded)
+                case .waitingOn(let players):
+                    if players.count > 1 {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(players, id: \.self.id) { player in
+                                    
+                                    HStack {
+                                        Image(player.iconString)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 80)
+                                            .padding(6)
+                                            .background( Circle().opacity(0.3))
+                                        VStack(alignment: .leading, spacing: 0) {
+                                            Text(type.rawValue)
+                                                .font(.caption.weight(.bold))
+                                                .fontDesign(.rounded)
+                                                .padding(.leading, 5)
+                                            Text(player.name)
+                                                .font(.largeTitle.weight(.bold))
+                                                .fontDesign(.rounded)
+                                        }
+                                        .padding(.trailing, 30)
                                     }
-                                    .padding(.trailing, 30)
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10).opacity(0.2)
+                                    )
                                 }
-                                .foregroundStyle(.white)
-                                .padding(.horizontal)
-                                .padding(.vertical, 8)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10).opacity(0.2)
-                                )
                             }
+                            .padding(.horizontal)
                         }
+                        .scrollIndicators(.hidden)
+                    } else {
+                        HStack {
+                            Image(player.iconString)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80)
+                                .padding(6)
+                                .background( Circle().opacity(0.3))
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text(type.rawValue)
+                                    .font(.caption.weight(.bold))
+                                    .fontDesign(.rounded)
+                                    .padding(.leading, 5)
+                                Text(player.name)
+                                    .font(.largeTitle.weight(.bold))
+                                    .fontDesign(.rounded)
+                            }
+                            .padding(.trailing, 30)
+                        }
+                        .foregroundStyle(.white)
                         .padding(.horizontal)
+                        .padding(.vertical, 8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10).opacity(0.2)
+                        )
                     }
-                    .scrollIndicators(.hidden)
                 default:
                     HStack {
-                        Image(player.icon.string)
+                        Image(player.iconString)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 80)
@@ -168,7 +200,7 @@ struct Header: View {
     return VStack {
 //        Header(type: .waitingRoom("AQ9D", User.test2))
 //        Header(player: User.test2, type: .currentPlayer)
-        Header(type: .waitingOn(User.testArr))
+        Header(type: .waitingOn(User.testArr.map { Player(user: $0) }))
         Spacer()
     }
     .environmentObject(GameManager.preview)

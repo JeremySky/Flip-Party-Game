@@ -15,7 +15,7 @@ struct WaitingRoomView: View {
     
     var host: User { gameManager.host }
     var isHost: Bool { gameManager.host.id == user.id }
-    var users: [User] { gameManager.players }
+    var users: [User] { gameManager.userList }
     var isValid: Bool { users.count >= 2 }
     
     let waitingText: String = "Waiting..."
