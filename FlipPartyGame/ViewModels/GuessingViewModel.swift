@@ -16,7 +16,6 @@ class GuessingViewModel: ObservableObject {
     let hand: [Card]
     let question: Question
     let currentCard: Card
-    let currentPlayer: User
     
     init(isFlipped: Bool = false, selectedAnswer: QuestionSelection? = nil, isCorrect: Bool? = nil, hand: [Card], question: Question, currentCard: Card, currentPlayer: User) {
         self.isFlipped = isFlipped
@@ -25,10 +24,10 @@ class GuessingViewModel: ObservableObject {
         self.hand = hand
         self.question = question
         self.currentCard = currentCard
-        self.currentPlayer = currentPlayer
     }
     
-    init(gameManager: GameManager, user: User) {
+    init(gameManager: GameManager) {
+        let user = gameManager.currentPlayer
         guard let hand = gameManager.hands[user.id] else { fatalError("Hand for user \(user.id) should not be nil") }
         guard let question = gameManager.phase.question else { fatalError("Question should not be nil") }
             
@@ -38,7 +37,6 @@ class GuessingViewModel: ObservableObject {
         self.hand = hand
         self.question = question
         self.currentCard = gameManager.getCurrentCard()
-        self.currentPlayer = gameManager.currentPlayer
     }
     
     
