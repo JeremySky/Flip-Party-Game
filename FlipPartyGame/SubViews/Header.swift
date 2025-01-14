@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum HeaderType {
-    case waitingRoom(_ roomID: String, _ host: User), currentPlayer(_ player: User), take, give(_ points: Int), guessing, giveTake
+    case waitingRoom(_ roomID: String?, _ host: User), currentPlayer(_ player: User), take, give(_ points: Int), guessing, giveTake
     
     var rawValue: String {
         switch self {
@@ -68,13 +68,15 @@ struct Header: View {
                 
                 switch type {
                 case .waitingRoom(let roomID, _):
-                    HStack {
-                        ForEach(Array(roomID.enumerated()), id: \.element) { _, char in
-                            Text("\(char)")
-                                .font(.body.weight(.heavy))
-                                .fontDesign(.rounded)
-                                .opacity(0.85)
-                                .cardStyle(customWidth: 40, customHeight: 40, border: false)
+                    if let roomID {
+                        HStack {
+                            ForEach(Array(roomID.enumerated()), id: \.element) { _, char in
+                                Text("\(char)")
+                                    .font(.body.weight(.heavy))
+                                    .fontDesign(.rounded)
+                                    .opacity(0.85)
+                                    .cardStyle(customWidth: 40, customHeight: 40, border: false)
+                            }
                         }
                     }
                 default:
