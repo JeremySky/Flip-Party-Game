@@ -8,12 +8,15 @@
 import Foundation
 
 class GameManager: ObservableObject {
+    
+    let host: User
+    
     @Published var players: [User]
     @Published var currentPlayer: User
     @Published var deck: [Card]
     @Published var currentCardIndex: Int
     @Published var hands: [UUID:[Card]]
-    @Published var phase: Phase
+    @Published var phase: GamePhase
     
     //question phase data...
     @Published var questionSelection: QuestionSelection?
@@ -22,7 +25,8 @@ class GameManager: ObservableObject {
     //give-take phase data...
     @Published var giveTakeSelection: (choice1: Sticker?, choice2: Sticker?)
     
-    init(players: [User], currentPlayer: User, deck: [Card], currentCardIndex: Int, hands: [UUID : [Card]], selected: QuestionSelection? = nil, result: Bool? = nil, phase: Phase) {
+    init(host: User, players: [User], currentPlayer: User, deck: [Card], currentCardIndex: Int, hands: [UUID : [Card]], selected: QuestionSelection? = nil, result: Bool? = nil, phase: GamePhase) {
+        self.host = host
         self.players = players
         self.currentPlayer = currentPlayer
         self.deck = deck
@@ -33,6 +37,18 @@ class GameManager: ObservableObject {
         self.phase = phase
     }
     
+    init(host: User) {
+        self.host = host
+        self.players = [host]
+        self.currentPlayer = User()
+        self.deck = []
+        self.currentCardIndex = 0
+        self.hands = [:]
+        self.questionSelection = nil
+        self.result = nil
+        self.phase = .question(.one)
+    }
+    
     func getCurrentCard() -> Card { deck[currentCardIndex] }
     
     func updateStandbyView(selected: QuestionSelection, result: Bool) {
@@ -40,6 +56,20 @@ class GameManager: ObservableObject {
         self.result = result
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 extension GameManager {
@@ -65,7 +95,7 @@ extension GameManager {
         }
         
         
-        var phase: Phase {
+        var phase: GamePhase {
             if currentCardIndex < 4 * players.count {
                 let questionIndex = currentCardIndex % 4
                 let question: Question = Question.allCases.first(where: { $0.index == questionIndex })!
@@ -96,7 +126,7 @@ extension GameManager {
             return data
         }
         
-        return GameManager(players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, phase: phase)
+        return GameManager(host: players[0], players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, phase: phase)
     }
     
     
@@ -142,7 +172,7 @@ extension GameManager {
             return data
         }
         
-        let gameManager = GameManager(players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, phase: .question(.one))
+        let gameManager = GameManager(host: players[0], players: players, currentPlayer: currentPlayer, deck: deck, currentCardIndex: currentCardIndex, hands: hands, phase: .question(.one))
         
         return gameManager
     }
