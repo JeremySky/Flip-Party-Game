@@ -9,16 +9,19 @@ import SwiftUI
 
 struct WaitingRoomView: View {
     
-    @State var users: [User] = User.testArr
-    @State var host: User = .test1
-    let roomID: String = "B34R"
-    var isHost = true
+    @EnvironmentObject var gameManager: GameManager
+    @Environment(\.user) var user
+    let roomID: String? = nil
+    
+    var host: User { gameManager.host }
+    var isHost: Bool { gameManager.host.id == user.id }
+    var users: [User] { gameManager.players }
+    var isValid: Bool { users.count >= 2 }
     
     let waitingText: String = "Waiting..."
     @State private var waveOffset: [CGFloat] = Array(repeating: 0, count: "Waiting...".count)
     
     
-    var isValid: Bool { users.count >= 2 }
     
     var body: some View {
         VStack {
@@ -31,25 +34,26 @@ struct WaitingRoomView: View {
             VStack(spacing: 25) {
                 
                 ForEach(users) { user in
-                    HStack {
-                        Image(user.icon.string)
-                            .resizable()
-                            .scaledToFit()
-                            .padding(5)
-                            .background( Circle().foregroundStyle(.white).opacity(0.3) )
-                            .padding(.vertical, 5)
-                            .padding(.leading, -25)
-                        Text(user.name)
-                            .font(.system(size: 30, weight: .bold, design: .rounded))
-                            .foregroundStyle(.white)
+                    if user != host {
+                        HStack {
+                            Image(user.icon.string)
+                                .resizable()
+                                .scaledToFit()
+                                .padding(5)
+                                .background( Circle().foregroundStyle(.white).opacity(0.3) )
+                                .padding(.vertical, 5)
+                                .padding(.leading, -25)
+                            Text(user.name)
+                                .font(.system(size: 30, weight: .bold, design: .rounded))
+                                .foregroundStyle(.white)
+                        }
+                        .frame(height: 80)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 6).foregroundStyle(user.color.value)
+                        )
+                        .padding(.horizontal)
                     }
-                    .frame(height: 60)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 6).foregroundStyle(user.color.value)
-                    )
-                    .padding(.horizontal)
-                    
                 }
             }
             .frame(maxHeight: .infinity)
@@ -58,23 +62,15 @@ struct WaitingRoomView: View {
             //MARK: ACTION BUTTON / WAITING TEXT...
             ZStack {
                 if isHost {
-                    Button(action: {}, label: {
-                        ZStack {
-                            Text("Start")
-                                .font(.system(size: 45, weight: .black, design: .rounded))
-                                .foregroundStyle(host.color.value)
-                            Text("Start")
-                                .font(.system(size: 45, weight: .black, design: .rounded))
-                                .foregroundStyle(.black.opacity(0.2).gradient)
-                        }
-                    })
-                    .buttonStyle(CustomAnimation())
+                    Button("Start", action: {})
+                        .buttonStyle(ColorBackground(isValid, user.color.value))
+                        .padding(.horizontal, 40)
                 } else {
                     
                     HStack(spacing: 3) {
                         ForEach(Array(waitingText.enumerated()), id: \.0) { i, char in
                             Text(String(char))
-                                .font(.system(size: 45, weight: .black, design: .rounded))
+                                .font(.system(size: 40, weight: .black, design: .rounded))
                                 .foregroundStyle(.gray)
                                 .offset(y: waveOffset[i])
                         }
@@ -84,7 +80,7 @@ struct WaitingRoomView: View {
             }
             .frame(height: 100)
         }
-        .onAppear(perform: { startWaveAnimation() })
+        .onAppear{ startWaveAnimation() }
     }
     
     private func startWaveAnimation() {
@@ -99,6 +95,10 @@ struct WaitingRoomView: View {
 }
 
 #Preview {
-    WaitingRoomView()
-        .environmentObject(GameManager.preview)
+    @State var user = User.test2
+    @State var gameManager = GameManager.preview
+    
+    return WaitingRoomView()
+        .environmentObject(gameManager)
+        .environment(\.user, user)
 }
