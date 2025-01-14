@@ -57,7 +57,7 @@ struct HomeView: View {
         .background(
             ZStack {
                 Color.red.ignoresSafeArea()
-                LinearGradient(colors: [.white.opacity(0.2), .black.opacity(0.4)], startPoint: .top, endPoint: .bottom)
+                LinearGradient(colors: [.white.opacity(0.13), .black.opacity(0.35)], startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
             }
         )
