@@ -10,6 +10,7 @@ import SwiftUI
 struct StandbyView: View {
     
     @EnvironmentObject var gameManager: GameManager
+    var onUpdateGameState: () -> Void
     
     
     // Animation Properties...
@@ -17,6 +18,7 @@ struct StandbyView: View {
     @State var currentCardOpacity: (revealed: Double, hidden: Double) = (0, 1)
     @State var resultsOverviewOffset: (selected: CGFloat, result: CGFloat) = (90 , -90)
 
+    let players = User.testArr
     
     var body: some View {
         VStack {
@@ -25,20 +27,20 @@ struct StandbyView: View {
             if !gameManager.turnTaken {
                 Header(type: .currentPlayer(gameManager.currentPlayer))
             } else {
-                Header(type: .waitingOn(User.testArr))
+                Header(type: .waitingOn(Array(gameManager.actionList)))
             }
 
             
             //MARK: -- PLAYERS OVERVIEW...
             VStack {
-                ForEach(Array(gameManager.playersQueue.enumerated()), id: \.offset) { playerNum, player in
+                ForEach(Array(players.enumerated()), id: \.offset) { playerNum, player in
                     
                     Button(action: { selectedPlayer = player }) {
                         overview(of: player, playerNum)
                             .scaleEffect(player.id == selectedPlayer.id ? 1 : 0.9)
                     }
                     .buttonStyle(CustomAnimation())
-                    .padding(.vertical, selectedPlayer == player ? 2 : 8)
+                    .padding(.vertical, selectedPlayer == player ? 12 : 0)
                 }
             }
             .frame(maxHeight: .infinity)
@@ -61,7 +63,7 @@ struct StandbyView: View {
         .onChange(of: gameManager.result) { _, _ in
             
             withAnimation(.bouncy(duration: 0.5)) {
-                selectedPlayer = gameManager.currentPlayer
+                selectedPlayer = gameManager.currentPlayer.user
                 resultsOverviewOffset.selected = 0
             }
             withAnimation(.bouncy(duration: 0.5).delay(1)) {
@@ -73,7 +75,7 @@ struct StandbyView: View {
             }
         }
         .onAppear {
-            selectedPlayer = gameManager.currentPlayer
+            selectedPlayer = gameManager.currentPlayer.user
         }
     }
     
@@ -138,7 +140,7 @@ struct StandbyView: View {
     @ViewBuilder
     private func selected() -> some View {
         
-        if let selected = gameManager.questionSelection {
+        if let selected = gameManager.selectedGuess {
             
             ZStack {
                 //image... (questions 2 - 4)
@@ -241,10 +243,15 @@ struct StandbyView: View {
         
         var body: some View {
             ZStack(alignment: .bottomTrailing) {
-                StandbyView()
+                StandbyView() {}
                 Button("TEST") {
-                    gameManager.questionSelection = .red
-                    gameManager.result = true
+//                    gameManager.selectedGuess = .red
+//                    gameManager.result = true
+                    withAnimation {
+                        gameManager.turnTaken = true
+                        gameManager.actionList.insert(Player(user: User.test2))
+                        gameManager.actionList.insert(Player(user: User.test3))
+                    }
                 }
                 .padding()
             }
@@ -252,5 +259,5 @@ struct StandbyView: View {
         }
     }
     
-    return StandbyViewPreview(cardIndex: 1)
+    return StandbyViewPreview(cardIndex: 16)
 }
